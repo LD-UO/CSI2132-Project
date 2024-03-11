@@ -12,7 +12,9 @@ public class ConnectionDB {
     private final String dbServerPort = "5432";
     private final String dbName = "postgres";
     private final String dbusername = "postgres";
-    private final String dbpassword = "";
+    // THE PASSWORD IS ONLY SET FOR MEEKYLE'S LAPTOP
+    // TODO: MAKE SURE TO SET THIS PASSWORD TO BE THE CORRECT PASSWORD DEPENDING ON WHO IS RUNNING THE SERVER!
+    private final String dbpassword = "test";
 
 
     private Connection con = null;
