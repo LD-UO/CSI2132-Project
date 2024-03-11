@@ -100,6 +100,7 @@ CREATE TABLE Reservation
 );
 
 -- Create Customers table
+-- TODO: Need to do something about why the "LIKE" command is not working when it comes to the constraints!
 CREATE TABLE Customers
 (
     username VARCHAR(30) NOT NULL,
