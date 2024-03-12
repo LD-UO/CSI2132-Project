@@ -86,6 +86,7 @@ CREATE TABLE Room
     IsExtendable    BOOLEAN        NOT NULL,
     Defects         VARCHAR(100)   NOT NULL CHECK (LENGTH(Defects) BETWEEN 4 AND 100),
     ViewDescription VARCHAR(100)   NOT NULL CHECK (LENGTH(ViewDescription) BETWEEN 5 AND 100),
+    Available       BOOLEAN        NOT NULL,
     PRIMARY KEY (RoomNum, StreetNum, StreetName, PostalCode)
 );
 
@@ -96,13 +97,13 @@ CREATE TABLE Reservation
     RoomNum        INT,
     username       VARCHAR(30),
     reservation_id SERIAL,
-    date           DATE NOT NULL,
+    startDate           DATE NOT NULL,
+    endDate           DATE NOT NULL,
     FOREIGN KEY (employee_id) REFERENCES Employee (employee_id),
     PRIMARY KEY (employee_id, RoomNum, username, reservation_id)
 );
 
 -- Create Customers table
--- TODO: Need to do something about why the "~" command is not working when it comes to the constraints!
 CREATE TABLE Customers
 (
     username VARCHAR(30) NOT NULL,
