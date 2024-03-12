@@ -10,6 +10,8 @@
     try {
         boolean result = login.usernameExists(username);
         // Need to do something here for the result
+        // Based on the value of result, if it is true, redirect to one page, if it is false, redirect
+        // back to the homepage
     } catch (Exception e){
         e.printStackTrace();
 
