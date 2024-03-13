@@ -48,12 +48,12 @@ public class Customer {
      * @param customer The customer to be added to the database.
      * @throws Exception Throws an exception if the database operation fails.
      */
-    public static void addCustomer(Customer customer) throws Exception {
+    protected static void addCustomer(Customer customer) throws Exception {
         ConnectionDB db = new ConnectionDB();
         Connection con = null;
         try {
             con = db.getConnection();
-            String insertQuery = "INSERT INTO Customers (username, name, sin, address) VALUES (?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO Customers (username, name, sin, address) VALUES (?, ?, ?, ?)"; //parameterized statement
 
             PreparedStatement statement = con.prepareStatement(insertQuery);
             statement.setString(1, customer.getUsername());
