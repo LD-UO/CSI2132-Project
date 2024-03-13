@@ -15,14 +15,14 @@ public class Registration extends UserManagement{
      * @param registeredUsername The username given when registering.
      * @param registeredName The name given when registering.
      * @param registeredSin The SIN given when registering.
-     * @param registeredAddress The address given when registerin.
+     * @param registeredAddress The address given when registering.
      */
     public Customer userRegistration(String registeredUsername, String registeredName, String registeredSin, String registeredAddress) throws Exception {
         if (!usernameExists(registeredUsername)){
 
             Customer c = new Customer(registeredUsername, registeredName, registeredSin, registeredAddress); //creates new Customer obj
 
-            Customer.addCustomer(c); //adds to DB
+            Customer.addCustomer(c); //adds to DB, will throw exception if error is encountered
 
             return c; //returns said Customer obj
 
