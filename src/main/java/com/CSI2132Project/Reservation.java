@@ -1,4 +1,8 @@
 package com.CSI2132Project;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  * Represents a reservation in the hotel reservation system.
  * This class stores information about a reservation, including
@@ -83,9 +87,35 @@ public class Reservation {
         this.endDate = endDate;
     }
 
-    public boolean makeReservation (Room r){
+    /* IN PROGRESS
+    public boolean makeReservation (Room r, String startDate, String endDate) throws Exception {
+        if (!r.isAvailable()){
+            return false; //room not available
+        }
+
+        try (Connection con = new ConnectionDB().getConnection()) {
+            // Insert the reservation into the database
+            String sql = "INSERT INTO Reservation (RoomNum, username, startDate, endDate) VALUES (?, ?, ?, ?)";
+
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                stmt.setInt(1, roomNum);
+                stmt.setString(2, username);
+                stmt.setString(3, startDate);
+                stmt.setString(4, endDate);
+
+                int affectedRows = stmt.executeUpdate();
+                if (affectedRows > 0) {
+                    System.out.println("Reservation successfully created.");
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return false;
     }
+
+     */
 
 }

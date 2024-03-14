@@ -92,7 +92,7 @@ public class Room {
      * @param endDate The end date of the desired reservation period (format: YYYY-MM-DD).
      * @return A list of available rooms.
      */
-    public List<Room> findAvailableRooms(String startDate, String endDate) throws Exception {
+    public static List<Room> findAvailableRooms(String startDate, String endDate) throws Exception {
         List<Room> availableRooms = new ArrayList<>();
         ConnectionDB db = new ConnectionDB();
         String sql = "SELECT Room.* " +
