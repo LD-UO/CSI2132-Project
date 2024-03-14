@@ -1,7 +1,6 @@
 package com.CSI2132Project;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -117,7 +116,7 @@ public class Room {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    // Assuming Room class has a constructor matching the Room table structure
+                    //Get all rooms in this query
                     Room room = new Room(
                             rs.getInt("RoomNum"),
                             rs.getInt("StreetNum"),
