@@ -98,11 +98,12 @@ public class Room {
         String sql = "SELECT Room.* " +
                 "FROM Room " +
                 "LEFT JOIN Reservation ON Room.RoomNum = Reservation.RoomNum " +
-                "AND NOT (Reservation.startDate <= ? AND Reservation.endDate >= ?) " +
-                "WHERE Reservation.reservation_id IS NULL " +
+                "AND Reservation.startDate <= '2024-03-20' " +
+                "AND Reservation.endDate >= '2024-03-15' " +
+                "WHERE Reservation.RoomNum IS NULL " +
                 "GROUP BY Room.RoomNum, Room.StreetNum, Room.StreetName, Room.PostalCode " +
-                "HAVING COUNT(Reservation.reservation_id) = 0 " +
-                "OR MAX(Reservation.endDate) < ? OR MIN(Reservation.startDate) > ?";
+                "HAVING COUNT(Reservation.RoomNum) = 0;";
+
 
         try {
             Connection con = db.getConnection();
