@@ -1,5 +1,8 @@
 package com.CSI2132Project;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  * Customer class to store customer information
  */
@@ -40,5 +43,32 @@ public class Customer {
 
     // TODO: Implement a toString() method? Is there any need for displaying the customer information, I don't think so
 
+    /**
+     * Inserts a new customer into the database.
+     * @param customer The customer to be added to the database.
+     * @throws Exception Throws an exception if the database operation fails.
+     */
+    protected static void addCustomer(Customer customer) throws Exception {
+        ConnectionDB db = new ConnectionDB();
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            String insertQuery = "INSERT INTO Customers (username, name, sin, address) VALUES (?, ?, ?, ?)"; //parameterized statement
+
+            PreparedStatement statement = con.prepareStatement(insertQuery);
+            statement.setString(1, customer.getUsername());
+            statement.setString(2, customer.getName());
+            statement.setString(3, customer.getSIN());
+            statement.setString(4, customer.getAddress());
+
+            statement.executeUpdate(); //executes CRUD statements that modify DB but don't return anything, we are INSERTING here
+
+            statement.close();
+            con.close();
+            db.close();
+        } catch (Exception e) {
+            throw new Exception("Error adding customer: " + e.getMessage());
+        }
+    }
 
 }
