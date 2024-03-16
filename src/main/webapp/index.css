@@ -1,0 +1,87 @@
+/* TODO: Maybe we could style the scroll wheel? Looks kinda weird being the default one, but this is something for later */
+@font-face {
+    font-family: "DM Serif Display";
+    src: url("fonts/DMSerifDisplay-Regular.ttf");
+}
+
+@font-face {
+    font-family: "DM Serif Display Italics";
+    src: url("fonts/DMSerifDisplay-Italic.ttf");
+}
+
+body {
+    font-family: "DM Serif Display";
+}
+
+#slogan {
+    font-family: "DM Serif Display Italics";
+}
+
+#welcome-banner{
+    background-image: url("assets/resort.png"), linear-gradient(rgba(14, 28, 84, 0), rgba(0, 0, 0, 1));
+    height: 600px;
+    background-size: 100%;
+    margin-bottom: 20px;
+}
+
+#welcome-message{
+    width: 50%;
+    position: relative;
+    top: 35%;
+    background-color: rgb(14, 28, 84);
+    margin: 0 auto;
+    color: white;
+    text-align: center;
+    height: 225px;
+    padding: 20px;
+    border: 2px solid white;
+}
+
+/* Date input styling */
+#datewrapper {
+    background-color: rgb(14, 28, 84);
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#disclaimer {
+    width: 60%;
+    font-family: "DM Serif Display Italics";
+    margin: 0 auto;
+    margin-top: 30px;
+}
+#dateinput {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: white ;
+    font-size: 18px;
+}
+
+#checkindiv, #checkoutdiv {
+    margin-top: 50px;
+    float: left;
+    width: 50%;
+}
+
+#checkindiv {
+    border-right: 1px solid black;
+}
+
+#submitbutton {
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding: 10px;
+    background-color: rgb(14, 28, 84);
+    color: white;
+}
+
+#submitbutton:hover{
+    background-color: white;
+    border: 1px solid rgb(14, 28, 84);
+    color: rgb(14, 28, 84);
+}

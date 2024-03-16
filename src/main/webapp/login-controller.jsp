@@ -6,9 +6,9 @@
 <%
     String username = request.getParameter("username");
     Login login = new Login();
-
+    boolean result = false;
     try {
-        boolean result = login.usernameExists(username);
+        result = login.usernameExists(username);
         // Need to do something here for the result
         // Based on the value of result, if it is true, redirect to one page, if it is false, redirect
         // back to the homepage
@@ -17,6 +17,11 @@
 
     }
 
-    // TODO: Going to need some sort of verification here
-    response.sendRedirect("index.jsp");
+    // TODO: CHANGE IN PLANS, WILL ONLY USE THIS CODE WHEN THE USER TRIES TO BOOK A ROOM
+    // MAKES THINGS EASIER WHEN TRYING TO GO BETWEEN PAGES
+    if (result){
+        response.sendRedirect("index.jsp");
+    } else {
+        System.out.println("The username entered could not be found! You can register here!");
+    }
 %>
