@@ -98,8 +98,8 @@ public class Room {
         String sql = "SELECT Room.* " +
                 "FROM Room " +
                 "LEFT JOIN Reservation ON Room.RoomNum = Reservation.RoomNum " +
-                "AND Reservation.startDate <= '2024-03-20' " +
-                "AND Reservation.endDate >= '2024-03-15' " +
+                "AND Reservation.startDate <= ? " +
+                "AND Reservation.endDate >= ? " +
                 "WHERE Reservation.RoomNum IS NULL " +
                 "GROUP BY Room.RoomNum, Room.StreetNum, Room.StreetName, Room.PostalCode " +
                 "HAVING COUNT(Reservation.RoomNum) = 0;";
@@ -112,8 +112,6 @@ public class Room {
             // Setting the parameters for the PreparedStatement
             ps.setString(1, startDate);
             ps.setString(2, endDate);
-            ps.setString(3, startDate);
-            ps.setString(4, endDate);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
