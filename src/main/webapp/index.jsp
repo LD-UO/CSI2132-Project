@@ -30,7 +30,7 @@
                 has provided millions of customers with accommodations for decades.
                 But, no need to hear it from us, <strong>try it out for yourself below!</strong> </p>
             </div>
-            <form>
+            <form action="availablerooms.jsp" method="POST">
                 <div id="checkindiv">
                     <label for="checkin">Check-in Date: </label>
                     <br>

@@ -71,7 +71,7 @@ body {
     border-right: 1px solid black;
 }
 
-#submitbutton {
+#submitbutton, #selectroombutton {
     margin-top: 20px;
     border-radius: 10px;
     border: 1px solid white;
@@ -80,8 +80,25 @@ body {
     color: white;
 }
 
-#submitbutton:hover{
+#submitbutton:hover, #selectroombutton:hover{
     background-color: white;
     border: 1px solid rgb(14, 28, 84);
     color: rgb(14, 28, 84);
+}
+
+#room-welcome{
+    width: 90%;
+    margin: 0 auto;
+}
+
+#room-welcome-message {
+    font-size: 18px;
+    color: rgb(14, 28, 84);
+}
+
+.card{
+    float: left;
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-bottom: 20px;
 }

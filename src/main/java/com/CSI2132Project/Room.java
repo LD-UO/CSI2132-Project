@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 public class Room {
 
@@ -22,6 +23,10 @@ public class Room {
     private String viewDescription;
     private boolean available;
 
+
+    public Room(){
+        // Creating an empty constructor so I can create a Room instance to access the findAvailableRooms method
+    }
     /**
      * Constructor
      * @param roomNum
@@ -38,6 +43,8 @@ public class Room {
      * @param viewDescription
      * @param available
      */
+
+
     public Room(int roomNum, int streetNum, String streetName, String postalCode, double price, boolean tv, boolean ac, boolean fridge, int capacity, boolean isExtendable, String defects, String viewDescription, boolean available) {
         this.roomNum = roomNum;
         this.streetNum = streetNum;
@@ -93,6 +100,7 @@ public class Room {
      * @return A list of available rooms.
      */
     public static List<Room> findAvailableRooms(String startDate, String endDate) throws Exception {
+
         List<Room> availableRooms = new ArrayList<>();
         ConnectionDB db = new ConnectionDB();
         String sql = "SELECT Room.* " +
@@ -104,14 +112,16 @@ public class Room {
                 "GROUP BY Room.RoomNum, Room.StreetNum, Room.StreetName, Room.PostalCode " +
                 "HAVING COUNT(Reservation.RoomNum) = 0;";
 
+        // Converting the string dates to SQL date objects so that they can be used for comparison purposes
+        Date startDateSQL = Date.valueOf(startDate);
+        Date endDateSQL = Date.valueOf(endDate);
 
         try {
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-
             // Setting the parameters for the PreparedStatement
-            ps.setString(1, startDate);
-            ps.setString(2, endDate);
+            ps.setDate(1, startDateSQL);
+            ps.setDate(2, endDateSQL);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
