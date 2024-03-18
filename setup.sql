@@ -1,7 +1,7 @@
 DROP SCHEMA IF EXISTS hotels CASCADE;
 
 CREATE SCHEMA hotels;
-SET search_path = 'hotels';
+ALTER USER postgres SET SEARCH_PATH TO hotels;
 
 -- Create Hotel Chain table
 CREATE TABLE HotelChain
