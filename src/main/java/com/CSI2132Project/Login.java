@@ -32,7 +32,7 @@ public class Login extends UserManagement{
                 return new Employee(id, streetName, streetNum, postalCode, name, phone, position, SIN);
 
             } else {
-                System.out.println("No employee found with ID: " + employeeId);
+                return null; //no employee found
             }
         } catch (Exception e) {
             e.printStackTrace();

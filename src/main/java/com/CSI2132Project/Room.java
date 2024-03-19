@@ -152,6 +152,43 @@ public class Room {
         return availableRooms;
     }
 
+    public static List<Room> findAllAvailableRooms() {
+        List<Room> availableRooms = new ArrayList<>();
+        String sql = "SELECT * FROM Room WHERE Available = TRUE AND NOT EXISTS (" +
+                "SELECT 1 FROM Reservation WHERE RoomNum = Room.RoomNum AND " +
+                "CURRENT_DATE BETWEEN startDate AND endDate)"; //selects all rooms that are marked as available in the Room table and are not currently reserved for the current date
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Room room = new Room(
+                        rs.getInt("RoomNum"),
+                        rs.getInt("StreetNum"),
+                        rs.getString("StreetName"),
+                        rs.getString("PostalCode"),
+                        rs.getDouble("Price"),
+                        rs.getBoolean("TV"),
+                        rs.getBoolean("AC"),
+                        rs.getBoolean("Fridge"),
+                        rs.getInt("Capacity"),
+                        rs.getBoolean("IsExtendable"),
+                        rs.getString("Defects"),
+                        rs.getString("ViewDescription"),
+                        rs.getBoolean("Available")
+                );
+                availableRooms.add(room);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return availableRooms;
+    }
+
+
+
+
 
 
 }
