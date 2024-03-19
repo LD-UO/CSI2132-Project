@@ -3,6 +3,8 @@ package com.CSI2132Project;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Employee {
     private int employeeId;
@@ -112,6 +114,32 @@ public class Employee {
         }
 
         return exists;
+    }
+
+    public List<Reservation> viewMyReservations() {
+        List<Reservation> myReservations = new ArrayList<>();
+        String sql = "SELECT * FROM Reservation WHERE employee_id = ?"; //gets all reservations for THIS employee
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, this.employeeId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Reservation reservation = new Reservation(
+                        rs.getInt("reservation_id"),
+                        rs.getInt("RoomNum"),
+                        rs.getString("username"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate")
+                ); //create reservation object through iteration and add to arraylist of reservations
+                myReservations.add(reservation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return myReservations;
     }
 
 
