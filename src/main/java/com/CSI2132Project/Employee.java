@@ -1,5 +1,9 @@
 package com.CSI2132Project;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class Employee {
     private int employeeId;
     private String streetName;
@@ -87,6 +91,27 @@ public class Employee {
 
     public void setSIN(String SIN) {
         this.SIN = SIN;
+    }
+
+    public static boolean checkEmployeeExists(int employeeId) {
+        boolean exists = false; //default case
+
+        String sql = "SELECT EXISTS (SELECT 1 FROM Employee WHERE employee_id = ?) AS \"exists\"";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, employeeId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    exists = rs.getBoolean("exists");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return exists;
     }
 
 

@@ -98,7 +98,7 @@ public class Reservation {
         try (Connection con = new ConnectionDB().getConnection()) {
             // Select a random employee
             String selectEmployeeSql = "SELECT employee_id FROM Employee ORDER BY RANDOM() LIMIT 1";
-            int employeeId = -1;
+            int employeeId = -1; //if error
             try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(selectEmployeeSql)) {
                 if (rs.next()) {
                     employeeId = rs.getInt("employee_id");
