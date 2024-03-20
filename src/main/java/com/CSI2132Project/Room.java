@@ -154,9 +154,16 @@ public class Room {
 
     public static List<Room> findAllAvailableRooms() {
         List<Room> availableRooms = new ArrayList<>();
-        String sql = "SELECT * FROM Room WHERE Available = TRUE AND NOT EXISTS (" +
-                "SELECT 1 FROM Reservation WHERE RoomNum = Room.RoomNum AND " +
-                "CURRENT_DATE BETWEEN startDate AND endDate)"; //selects all rooms that are marked as available in the Room table and are not currently reserved for the current date
+        String sql = "SELECT * " +
+                "FROM Room " +
+                "WHERE Available = TRUE " +
+                "AND NOT EXISTS ( " +
+                "    SELECT 1 " +
+                "    FROM Reservation " +
+                "    WHERE RoomNum = Room.RoomNum " +
+                "    AND CURRENT_DATE BETWEEN startDate AND endDate " +
+                ") " +
+                "ORDER BY RoomNum;";//selects all rooms that are marked as available in the Room table and are not currently reserved for the current date and orders by roomnum
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql);
