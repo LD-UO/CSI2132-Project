@@ -2,6 +2,8 @@ package com.CSI2132Project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Represents a reservation in the hotel reservation system.
@@ -87,26 +89,36 @@ public class Reservation {
         this.endDate = endDate;
     }
 
-    /* IN PROGRESS
+
     public boolean makeReservation (Room r, String startDate, String endDate) throws Exception {
         if (!r.isAvailable()){
             return false; //room not available
         }
 
         try (Connection con = new ConnectionDB().getConnection()) {
+            // Select a random employee
+            String selectEmployeeSql = "SELECT employee_id FROM Employee ORDER BY RANDOM() LIMIT 1";
+            int employeeId = -1; //if error
+            try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(selectEmployeeSql)) {
+                if (rs.next()) {
+                    employeeId = rs.getInt("employee_id");
+                } else {
+                    throw new Exception("No employees found"); // handle error
+                }
+            }
+
             // Insert the reservation into the database
-            String sql = "INSERT INTO Reservation (RoomNum, username, startDate, endDate) VALUES (?, ?, ?, ?)";
+            String insertSql = "INSERT INTO Reservation (employee_id, RoomNum, username, startDate, endDate) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = con.prepareStatement(insertSql)) {
+                pstmt.setInt(1, employeeId);
+                pstmt.setInt(2, r.getRoomNum()); // Assuming Room class has a getRoomNum method
+                pstmt.setString(3, username);
+                pstmt.setDate(4, java.sql.Date.valueOf(startDate));
+                pstmt.setDate(5, java.sql.Date.valueOf(endDate));
 
-            try (PreparedStatement stmt = con.prepareStatement(sql)) {
-                stmt.setInt(1, roomNum);
-                stmt.setString(2, username);
-                stmt.setString(3, startDate);
-                stmt.setString(4, endDate);
-
-                int affectedRows = stmt.executeUpdate();
+                int affectedRows = pstmt.executeUpdate();
                 if (affectedRows > 0) {
-                    System.out.println("Reservation successfully created.");
-                    return true;
+                    return true; //successful reservation
                 }
             }
         } catch (Exception e) {
@@ -116,6 +128,6 @@ public class Reservation {
         return false;
     }
 
-     */
+
 
 }
