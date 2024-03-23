@@ -12,7 +12,7 @@ public class ConnectionDB {
     private final String dbServerPort = "5432";
     private final String dbName = "postgres";
     private final String dbusername = "postgres";
-    private final String dbpassword = "";
+    private final String dbpassword = "test";
 
 
     private Connection con = null;

@@ -21,6 +21,8 @@ public abstract class UserManagement {
 
         // Object that will create connection with the database
         ConnectionDB db = new ConnectionDB();
+
+        LoginCheck l1 = new LoginCheck();
         // Running the query to get the number of results returned from the Customers table
         // The rationale behind this was because each username has to be unique, the number of
         // rows returned should just be 1
@@ -37,8 +39,10 @@ public abstract class UserManagement {
             // Iterating over the results while it still has some values, and if it does this means that the
             // user does in fact exist in the system already and can log in successfully
             while (rs.next()){
-                System.out.println(rs.getInt(1));
-                result = true;
+                if (rs.getInt(1) == 1) {
+                    result = true;
+                    l1.setLoggedinStatus();
+                }
             }
 
             // Closing all of the connections associated with the database to ensure no memory leaks

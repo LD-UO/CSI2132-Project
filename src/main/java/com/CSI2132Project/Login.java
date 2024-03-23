@@ -7,6 +7,9 @@ import java.sql.ResultSetMetaData;
 
 public class Login extends UserManagement{
 
+    public boolean customerLogin(String username) throws Exception {
+        return usernameExists(username);
+    }
 
     public Employee employeeLogin (int employeeId){
         String sql = "SELECT * FROM Employee WHERE employee_id = ?";

@@ -26,12 +26,25 @@
             for (Room r : results){
         %>
                 <form action="checkout.jsp" method="POST">
+                <input type="hidden" id="currentRoomNumber" name="currentRoomNumber" value=<%= r.getRoomNum() %>>
+                <input type="hidden" id="currentStreetNum" name="currentStreetNum" value=<%= r.getStreetNum() %>>
+                <input type="hidden" id="currentStreetName" name="currentStreetName" value=<%= r.getStreetName() %>>
+                <input type="hidden" id="currentPostalCode" name="currentPostalCode" value=<%= r.getPostalCode() %>>
+                <input type="hidden" id="currentPrice" name="currentPrice" value=<%= r.getPrice() %>>
+                <input type="hidden" id="currentTv" name="currentTv" value=<%= r.isTv() %>>
+                <input type="hidden" id="currentAc" name="currentAc" value=<%= r.isAc() %>>
+                <input type="hidden" id="currentFridge" name="currentFridge" value=<%= r.isFridge() %>>
+                <input type="hidden" id="currentCapacity" name="currentCapacity" value=<%= r.getCapacity() %>>
+                <input type="hidden" id="currentExtendable" name="currentExtendable" value=<%= r.isExtendable() %>>
+                <input type="hidden" id="currentDefects" name="currentDefects" value=<%= r.getDefects() %>>
+                <input type="hidden" id="currentDescription" name="currentDescription" value=<%= r.getViewDescription() %>>
+                <input type="hidden" id="currentAvailable" name="currentAvailable" value=<%= r.isAvailable() %>>
                 <div class="card" style="width: 18rem;">
                   <img src="assets/hotel.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
 
                   <!-- TODO: Could set the card header to be the hotel chain that offers the room -->
-                  <!-- TODO: If no rooms could be found within the given date range, we should display a message status this! -->
+                  <!-- TODO: If no rooms could be found within the given date range, we should display a message status! -->
 
                     <h5 class="card-title"><%= r.getStreetNum() %> <%= r.getStreetName() %> - <%= r.getRoomNum() %></h5>
                     <p class="card-text"><%= r.getPostalCode() %></p>
