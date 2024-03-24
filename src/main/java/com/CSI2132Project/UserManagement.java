@@ -42,6 +42,7 @@ public abstract class UserManagement {
                 if (rs.getInt(1) == 1) {
                     result = true;
                     l1.setLoggedinStatus();
+                    LoginCheck.setUserName(usernameToCheck);
                 }
             }
 

@@ -9,9 +9,11 @@
     <title>Checkout</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body id="checkout-page">
     <%
         Room currentRoom;
+        String startDate;
+        String endDate;
         try {
             int roomNum = Integer.parseInt(request.getParameter("currentRoomNumber"));
             int streetNum = Integer.parseInt(request.getParameter("currentStreetNum"));
@@ -26,11 +28,19 @@
             String defects = request.getParameter("currentDefects");
             String description = request.getParameter("currentDescription");
             boolean isAvailable = Boolean.parseBoolean(request.getParameter("currentAvailable"));
+            startDate = request.getParameter("currentStartDate");
+            endDate = request.getParameter("currentEndDate");
 
             currentRoom = new Room(roomNum, streetNum, streetName, postalCode, price, isTv, isAc, isFridge, capacity, isExtendable, defects, description, isAvailable);
+
             Session.setRoom(currentRoom);
+            Session.setCurrentSessionStartDate(startDate);
+            Session.setCurrentSessionEndDate(endDate);
+
         } catch (Exception e){
             currentRoom = Session.currentSessionRoom;
+            startDate = Session.currentSessionStartDate;
+            endDate = Session.currentSessionEndDate;
         }
 
         LoginCheck l1 = new LoginCheck();
@@ -42,9 +52,10 @@
         } else {
             %>
             <div id="disclaimer-summary">
-                <p>This is a quick summary of the room that you have chosen plus some additional information. Please note that payments will be accepted
-                at the time of checking in. Once you click on the Book Room button at the bottom of the page, you will receive an email with the receipt
+                <p id="disclaimer-summary-text">This is a quick summary of the room that you have chosen plus some additional information. Please note that payments will be accepted
+                at the time of checking in. Once you click on the Book Room button at the bottom of the page, you will be redirected to the homepage and you will receive an email with the receipt
                 of your booking which you can display at the time of check in. </p>
+                <p id="another-choice">Click <a id="back-link" href="availablerooms.jsp?checkin=<%= startDate %>&checkout=<%= endDate %>">here</a> if you would like to choose another room</p>
             </div>
             <div id="summary">
                 <p id="summary-text-header">Here is a quick summary of the room you have selected: </p>
@@ -85,7 +96,7 @@
 
                 <div id="submit-checkout">
                     <form action="reservation-controller.jsp" method="POST">
-                        <input type="submit" id="submit-reservation" value="Book!">
+                        <input type="submit" id="submit-reservation" value="Book Room!">
                     </form>
                 </div>
             </div>

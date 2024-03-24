@@ -39,6 +39,9 @@
                 <input type="hidden" id="currentDefects" name="currentDefects" value=<%= r.getDefects() %>>
                 <input type="hidden" id="currentDescription" name="currentDescription" value=<%= r.getViewDescription() %>>
                 <input type="hidden" id="currentAvailable" name="currentAvailable" value=<%= r.isAvailable() %>>
+                <input type="hidden" id="currentStartDate" name="currentStartDate" value=<%= startDate %>>
+                <input type="hidden" id="currentEndDate" name="currentEndDate" value=<%= endDate %>>
+
                 <div class="card" style="width: 18rem;">
                   <img src="assets/hotel.jpg" class="card-img-top" alt="...">
                   <div class="card-body">

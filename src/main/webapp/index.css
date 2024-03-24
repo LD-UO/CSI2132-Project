@@ -168,15 +168,15 @@ body {
     color: rgb(14, 28, 84);
 }
 
-#register_link, #login_link{
+#register_link, #login_link, #back-link{
     color: rgb(14, 28, 84);
     text-decoration: none;
 }
 
-#register_link:hover, #login_link:hover {
+#register_link:hover, #login_link:hover, #back-link:hover {
     text-decoration: underline;
 }
-#register_link:active, #login_link:active {
+#register_link:active, #login_link:active, #back-link:active {
     color: rgb(14, 28, 84);
     text-decoration: none;
 }
@@ -212,6 +212,14 @@ body {
     border: 10px solid rgb(14, 28, 84);
 }
 
+#checkout-page {
+    background-color: rgb(173, 216, 230);
+}
+
+#another-choice {
+    font-size: 18px;
+    padding-left: 40px;
+}
 #disclaimer-summary, #summary{
     float: left;
 }
@@ -226,7 +234,7 @@ body {
     transform: translateY(-40%);
 }
 
-#disclaimer-summary p {
+#disclaimer-summary-text {
     padding: 40px;
     font-size: 24px;
 }
