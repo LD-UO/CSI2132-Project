@@ -27,7 +27,6 @@
         l.setLoggedinStatus();
         response.sendRedirect("checkout.jsp");
     } else {
-        System.out.println("Something went wrong!");
         response.sendRedirect("registerPage.jsp?registrationFailed=true");
     }
 

@@ -5,11 +5,13 @@
         <link rel="stylesheet" href="index.css">
         <title>Registration</title>
     </head>
-    <body>
+    <body id="registration-page">
+    <h1>Logo</h1>
         <%
             boolean registrationFailed = Boolean.parseBoolean(request.getParameter("registrationFailed"));
-            System.out.println(registrationFailed);
         %>
+        <div id="registration-section">
+        <div id="registration-modal">
         <p>Welcome to the registration page, please enter the following information to create an account and begin booking your dream vacation! </p>
         <form action="registration-controller.jsp" method="POST">
             <label for="username">Username: </label>
@@ -43,16 +45,19 @@
             <br>
             <input type="text" name="city-name" required>
             <br>
-            <input type="submit" value="Register">
+            <br>
+            <input type="submit" id="submit-login" value="Register">
+            <p id="registrationFailedMessage"></p>
         </form>
-        <p id="registrationFailedMessage"></p>
+        </div>
+        </div>
         <script>
             if ( <%= registrationFailed %>) {
-                document.getElementById("registrationFailedMessage").innerHTML = "Registration failed, either a field was improperly inputted or there is already an account with that username, you can try logging in <a href='loginPage.jsp'>here</a>";
+                document.getElementById("registrationFailedMessage").innerHTML = "Registration failed, either a field was improperly inputted or there is already an account with that username, you can try logging in <a id='login_link' href='loginPage.jsp'>here</a>";
             } else {
                 document.getElementById("registrationFailedMessage").innerHTML = "";
             }
         </script>
-
+        <script src="index.js"></script>
     </body>
 </html>

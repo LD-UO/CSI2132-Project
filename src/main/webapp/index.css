@@ -18,6 +18,7 @@ body {
 }
 
 #welcome-banner{
+    /* TODO: Make the background more transparent */
     background-image: url("assets/resort.png"), linear-gradient(rgba(14, 28, 84, 0), rgba(0, 0, 0, 1));
     height: 600px;
     background-size: 100%;
@@ -102,3 +103,170 @@ body {
     margin-right: 45px;
     margin-bottom: 20px;
 }
+
+#test {
+    background-image: url("assets/loginbackground.png");
+    background-size: 100% 100%;
+    background-color: rgb(173, 216, 230);
+    overflow-y: hidden;
+}
+
+#login-section{
+    width: 100%;
+    height: 100%;
+}
+
+#login-modal{
+    position: relative;
+    top: 40%;
+    -webkit-transform: translateY(-40%);
+    -ms-transform: translateY(-40%);
+    transform: translateY(-40%);
+    width: 30%;
+    background-color: white;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px;
+    border-radius: 10px;
+    border: 10px solid rgb(14, 28, 84);
+}
+
+#login-declaration {
+    font-weight: bold;
+}
+#username {
+    font-family: "DM Serif Display";
+}
+
+#submit-login {
+    background-color: rgb(14, 28, 84);
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    font-family: "DM Serif Display";
+    width: 20%;
+    border: 2px solid rgb(14, 28, 84);
+}
+
+#submit-reservation {
+    background-color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    color: rgb(14, 28, 84);
+    font-family: "DM Serif Display";
+    width: 20%;
+}
+
+#submit-reservation:hover {
+    background-color: lightgray;
+}
+#submit-login:hover{
+    background-color: white;
+    border: 2px solid rgb(14, 28, 84);
+    color: rgb(14, 28, 84);
+}
+
+#register_link, #login_link{
+    color: rgb(14, 28, 84);
+    text-decoration: none;
+}
+
+#register_link:hover, #login_link:hover {
+    text-decoration: underline;
+}
+#register_link:active, #login_link:active {
+    color: rgb(14, 28, 84);
+    text-decoration: none;
+}
+
+#loginFailedMessage, #registrationFailedMessage {
+    color: red;
+}
+
+#registration-page {
+    background-image: url("assets/registrationbackground.png");
+    background-size: 100% 100%;
+    background-color: rgb(173, 216, 230);
+    overflow-y: hidden;
+}
+
+#registration-section {
+    width: 100%;
+    height: 100%;
+}
+
+#registration-modal {
+    position: relative;
+    top: 32%;
+    -webkit-transform: translateY(-32%);
+    -ms-transform: translateY(-32%);
+    transform: translateY(-32%);
+    width: 30%;
+    background-color: white;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px;
+    border-radius: 10px;
+    border: 10px solid rgb(14, 28, 84);
+}
+
+#disclaimer-summary, #summary{
+    float: left;
+}
+
+#disclaimer-summary{
+    width: 40%;
+    color: rgb(14, 28, 84);
+    position: relative;
+    top: 40%;
+    -webkit-transform: translateY(-40%);
+    -ms-transform: translateY(-40%);
+    transform: translateY(-40%);
+}
+
+#disclaimer-summary p {
+    padding: 40px;
+    font-size: 24px;
+}
+
+#summary-text-header {
+    padding-left: 25px;
+}
+#summary{
+    width: 60%;
+}
+#summary{
+    height: 100%;
+    background-color: rgb(14, 28, 84);
+    color: white;
+}
+
+#summary-text, #summary-image {
+    float: left;
+}
+
+
+#summary-text{
+    width: 40%;
+}
+
+#summary-text p, #summary-text h3 {
+    padding-left: 25px;
+}
+
+#summary-image {
+    width: 60%;
+    height: 531.7px;
+}
+#summary-image img{
+    width: 90%;
+    text-align: center;
+}
+
+#submit-checkout{
+    text-align: center;
+}
+/*TODO: Get better coloured icons for the checkout page! */
+/*TODO: Get the functionality for making a reservation done! */
