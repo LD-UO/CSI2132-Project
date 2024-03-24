@@ -7,8 +7,15 @@
     <title>Welcome!</title>
 </head>
 <body onload="loadDates()">
-    <div class="container-fluid">
-        <h1>Logo will go here</h1>
+    <div id="banner">
+        <div id="logo-div">
+            <h1>Logo will go here</h1>
+        </div>
+        <div id="employee-login-div">
+            <form action="employee-login.jsp" action="POST">
+                <input id="employee-login-button" type="submit" value="Employee Login">
+            </form>
+        </div>
     </div>
     <div class="container-fluid" id="welcome-banner">
         <div id="welcome-message">
@@ -18,8 +25,7 @@
         </div>
     </div>
 
-    <!-- TODO: Will need to update this to be the right webpage once we get to that point -->
-    <!-- Will need to add the action and method to the form! -->
+    <!-- May need to add some more criteria here based on the assignment document -->
 
     <div id="datewrapper">
         <br>
