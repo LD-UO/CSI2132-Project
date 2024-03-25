@@ -37,7 +37,7 @@ CREATE TABLE Employee
     StreetNum   INT         NOT NULL,
     StreetName  VARCHAR(30) NOT NULL,
     PostalCode  CHAR(6)     NOT NULL CHECK (PostalCode ~ '^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$'),
-    Name        VARCHAR(20) NOT NULL CHECK (LENGTH(Name) BETWEEN 2 AND 20 AND Name ~ '^[a-zA-Z ]+$'),
+    Name        VARCHAR(50) NOT NULL CHECK (LENGTH(Name) BETWEEN 2 AND 50 AND Name ~ '^[a-zA-Z ]+$'),
     Phone       CHAR(10)    NOT NULL CHECK (LENGTH(Phone) = 10 AND Phone ~ '^[0-9]+$'),
     Position    VARCHAR(20) NOT NULL CHECK (LENGTH(Position) BETWEEN 3 AND 20 AND Position ~ '^[a-zA-Z]+$'),
     SIN         CHAR(9)     NOT NULL CHECK (LENGTH(SIN) = 9 AND SIN ~ '^[0-9]+$'),
@@ -193,21 +193,42 @@ INSERT INTO HotelPhone (StreetNum, StreetName, PostalCode, Phone) VALUES
                                                                       (201, 'Birch St', 'G7G7G7', '7890123456');
 
 INSERT INTO Employee (employee_id, StreetNum, StreetName, PostalCode, Name, Phone, Position, SIN) VALUES
-                                                                                                      (1, 100, 'Main St', 'A1A1A1', 'John Doe', '1234567890', 'Manager', '123456789'),
-                                                                                                      (2, 200, 'Elm St', 'B2B2B2', 'Jane Smith', '2345678901', 'Receptionist', '234567890'),
-                                                                                                      (3, 300, 'Maple Ave', 'C3C3C3', 'Michael Johnson', '3456789012', 'Housekeeping', '345678901'),
-                                                                                                      (4, 400, 'Oak St', 'D4D4D4', 'Emily Williams', '4567890123', 'Chef', '456789012'),
-                                                                                                      (5, 500, 'Cedar Rd', 'E5E5E5', 'David Brown', '5678901234', 'Maintenance', '567890123'),
+                                                                                                      (1, 100, 'Main St', 'A1A1A1', 'John Doe', '1234567890', 'Manager', '123456780'),
+                                                                                                      (2, 200, 'Elm St', 'B2B2B2', 'Jane Smith', '2345678901', 'Manager', '234567890'),
+                                                                                                      (3, 300, 'Maple Ave', 'C3C3C3', 'Michael Johnson', '3456789012', 'Manager', '345678901'),
+                                                                                                      (4, 400, 'Oak St', 'D4D4D4', 'Emily Williams', '4567890123', 'Manager', '456789012'),
+                                                                                                      (5, 500, 'Cedar Rd', 'E5E5E5', 'David Brown', '5678901234', 'Manager', '567890123'),
                                                                                                       (6, 101, 'Pine St', 'F6F6F6', 'Emma Davis', '6789012345', 'Manager', '678901234'),
-                                                                                                      (7, 201, 'Birch St', 'G7G7G7', 'James Wilson', '7890123456', 'Receptionist', '789012345'),
+                                                                                                      (7, 201, 'Birch St', 'G7G7G7', 'James Wilson', '7890123456', 'Manager', '789012345'),
                                                                                                       (8, 100, 'Main St', 'A1A1A1', 'Olivia Anderson', '8901234567', 'Housekeeping', '890123456'),
                                                                                                       (9, 100, 'Main St', 'A1A1A1', 'Noah Taylor', '9012345678', 'Chef', '901234567'),
                                                                                                       (10, 100, 'Main St', 'A1A1A1', 'Sophia Martinez', '0123456789', 'Maintenance', '012345678'),
-                                                                                                      (11, 100, 'Main St', 'A1A1A1', 'William Garcia', '1234567890', 'Manager', '123456789'),
-                                                                                                      (12, 100, 'Main St', 'A1A1A1', 'Isabella Hernandez', '2345678901', 'Receptionist', '234567890'),
-                                                                                                      (13, 100, 'Main St', 'A1A1A1', 'Mason Martinez', '3456789012', 'Housekeeping', '345678901'),
-                                                                                                      (14, 100, 'Main St', 'A1A1A1', 'Sophia Martinez', '4567890123', 'Chef', '456789012'),
-                                                                                                      (15, 100, 'Main St', 'A1A1A1', 'Jacob Brown', '5678901234', 'Maintenance', '567890123');
+                                                                                                      (11, 100, 'Main St', 'A1A1A1', 'William Garcia', '1234567890', 'Housekeeping', '123456781'),
+                                                                                                      (12, 100, 'Main St', 'A1A1A1', 'Isabella Hernandez', '2345678901', 'Receptionist', '234567891'),
+                                                                                                      (13, 100, 'Main St', 'A1A1A1', 'Mason Martinez', '3456789012', 'Housekeeping', '345678902'),
+                                                                                                      (14, 100, 'Main St', 'A1A1A1', 'Sophia Martinez', '4567890123', 'Chef', '456789013'),
+                                                                                                      (15, 100, 'Main St', 'A1A1A1', 'Jacob Brown', '5678901234', 'Maintenance', '567890124'),
+                                                                                                    (16, 100, 'Main St', 'A1A1A1', 'Ella Johnson', '6789012345', 'Receptionist', '123456782'),
+                                                                                                    (17, 200, 'Elm St', 'B2B2B2', 'Alexander Brown', '7890123456', 'Receptionist', '234567892'),
+                                                                                                    (18, 300, 'Maple Ave', 'C3C3C3', 'Samantha Smith', '8901234567', 'Housekeeping', '345678903'),
+                                                                                                    (19, 400, 'Oak St', 'D4D4D4', 'Ethan Taylor', '9012345678', 'Chef', '456789014'),
+                                                                                                    (20, 500, 'Cedar Rd', 'E5E5E5', 'Madison Wilson', '0123456789', 'Maintenance', '567890125'),
+                                                                                                    (21, 101, 'Pine St', 'F6F6F6', 'Ava Anderson', '1234567890', 'Receptionist', '678901235'),
+                                                                                                    (22, 201, 'Birch St', 'G7G7G7', 'Benjamin Martinez', '2345678901', 'Receptionist', '789012346'),
+                                                                                                    (23, 300, 'Maple Ave', 'C3C3C3', 'Evelyn Garcia', '3456789012', 'Housekeeping', '890123457'),
+                                                                                                    (24, 400, 'Oak St', 'D4D4D4', 'Christopher Hernandez', '4567890123', 'Chef', '901234568'),
+                                                                                                    (25, 500, 'Cedar Rd', 'E5E5E5', 'Addison Brown', '5678901234', 'Maintenance', '012345679'),
+                                                                                                    (26, 101, 'Pine St', 'F6F6F6', 'Liam Johnson', '6789012345', 'Receptionist', '123456783'),
+                                                                                                    (27, 201, 'Birch St', 'G7G7G7', 'Chloe Smith', '7890123456', 'Receptionist', '234567893'),
+                                                                                                    (28, 300, 'Maple Ave', 'C3C3C3', 'Grace Taylor', '8901234567', 'Housekeeping', '345678904'),
+                                                                                                    (29, 400, 'Oak St', 'D4D4D4', 'Lucas Wilson', '9012345678', 'Chef', '456789015'),
+                                                                                                    (30, 500, 'Cedar Rd', 'E5E5E5', 'Avery Martinez', '0123456789', 'Maintenance', '567890126'),
+                                                                                                    (31, 101, 'Pine St', 'F6F6F6', 'Elena Anderson', '1234567890', 'Receptionist', '678901236'),
+                                                                                                    (32, 201, 'Birch St', 'G7G7G7', 'Dylan Martinez', '2345678901', 'Receptionist', '789012347'),
+                                                                                                    (33, 300, 'Maple Ave', 'C3C3C3', 'Zoe Garcia', '3456789012', 'Housekeeping', '890123458'),
+                                                                                                    (34, 400, 'Oak St', 'D4D4D4', 'Miles Hernandez', '4567890123', 'Chef', '901234569'),
+                                                                                                    (35, 500, 'Cedar Rd', 'E5E5E5', 'Hannah Brown', '5678901234', 'Maintenance', '012345680'),
+                                                                                                    (36, 101, 'Pine St', 'F6F6F6', 'Natalie Johnson', '6789012345', 'Receptionist', '123456784');
 
 INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) VALUES
 -- Marriott
@@ -264,3 +285,12 @@ INSERT INTO Archive (archive_id, employee_id, roomNum, StreetNum, StreetName, Po
 (3, 3, 201, 300, 'Maple Ave', 'C3C3C3', 'Hyatt', 'alex_jones'),
 (4, 4, 301, 400, 'Oak St', 'D4D4D4', 'Holiday Inn', 'emily_wang'),
 (5, 5, 401, 500, 'Cedar Rd', 'E5E5E5', 'Sheraton', 'michael_brown');
+
+UPDATE HotelInstance SET Manager = 1 WHERE (PostalCode = 'A1A1A1');
+UPDATE HotelInstance SET Manager = 2 WHERE (PostalCode = 'B2B2B2');
+UPDATE HotelInstance SET Manager = 3 WHERE (PostalCode = 'C3C3C3');
+UPDATE HotelInstance SET Manager = 4 WHERE (PostalCode = 'D4D4D4');
+UPDATE HotelInstance SET Manager = 5 WHERE (PostalCode = 'E5E5E5');
+UPDATE HotelInstance SET Manager = 6 WHERE (PostalCode = 'F6F6F6');
+UPDATE HotelInstance SET Manager = 7 WHERE (PostalCode = 'G7G7G7');
+
