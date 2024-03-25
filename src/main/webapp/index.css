@@ -171,7 +171,7 @@ body {
     font-family: "DM Serif Display";
 }
 
-#submit-login, #employee-login-button {
+#submit-login, #employee-login-button-2 {
     background-color: rgb(14, 28, 84);
     border: none;
     padding: 15px;
@@ -321,4 +321,61 @@ body {
 #login-form {
     width: 40%;
     background-color: white;
+}
+
+#employee-landing{
+    background-image: url("assets/employee landing background.png");
+    background-size: cover;
+    background-color: rgb(173, 216, 230);
+}
+
+#employee-landing-welcome, #employee-landing-slogan {
+    margin: 25px;
+}
+
+#options {
+    width: 100%;
+    color: white;
+    text-align: center;
+    margin: 0 auto;
+    height: 200px;
+}
+
+#view-assigned-reservations, #view-available-rooms, #delete-reservations, #manage-employees, #manage-hotels, #manage-franchise {
+    float: left;
+    background-color: rgb(14, 28, 84);
+    width: 25%;
+    padding: 0px 20px;
+    height: 250px;
+    border: 5px solid white;
+    border-radius: 10px;
+    margin: 20px;
+    font-size: 24px;
+}
+
+#view-assigned-reservations-button{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(14, 28, 84);
+    color: white;
+    border: none;
+    font-family: "DM Serif Display";
+    font-size: 24px;
+    border-radius: 10px;
+}
+
+#reservation-e-view{
+    width: 90%;
+    background-color: rgb(14, 28, 84);
+    margin: 0 auto;
+    color: white;
+}
+
+#reservation-table{
+    width: 100%;
+}
+
+td {
+    padding: 20px;
+    color: white;
 }

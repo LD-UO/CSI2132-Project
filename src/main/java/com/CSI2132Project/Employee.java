@@ -16,6 +16,9 @@ public class Employee {
     private String position;
     private String SIN;
 
+    // Empty constructor to use the methods
+    public Employee(){}
+
     // Constructor
     public Employee(int employeeId, String streetName, int streetNum, String postalCode,
                     String name, String phone, String position, String SIN) {
@@ -116,14 +119,14 @@ public class Employee {
         return exists;
     }
 
-    public List<Reservation> viewMyReservations() {
+    public List<Reservation> viewMyReservations(int employeeID) {
         List<Reservation> myReservations = new ArrayList<>();
         String sql = "SELECT * FROM Reservation WHERE employee_id = ?"; //gets all reservations for THIS employee
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setInt(1, this.employeeId);
+            pstmt.setInt(1, employeeID);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

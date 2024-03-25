@@ -17,7 +17,7 @@
                 <input type="text" id="employee-id" name="employee-id" required><br>
                 <br>
                 <p id="loginFailedMessage">Entered Employee ID could not be found, please try again! You can contact your hotel manager to receive your Employee ID if forgotten</p>
-                <input id="employee-login-button" type="submit" value="Login">
+                <input id="employee-login-button-2" type="submit" value="Login">
             </form>
         </div>
         <script>
