@@ -95,12 +95,16 @@ CREATE TABLE Reservation
 (
     employee_id    INT,
     RoomNum        INT,
+    StreetNum       INT            NOT NULL,
+    StreetName      VARCHAR(30)    NOT NULL,
+    PostalCode      CHAR(6)        NOT NULL,
     username       VARCHAR(30),
     reservation_id SERIAL,
     startDate           DATE NOT NULL,
     endDate           DATE NOT NULL,
     FOREIGN KEY (employee_id) REFERENCES Employee (employee_id),
-    PRIMARY KEY (employee_id, RoomNum, username, reservation_id)
+    FOREIGN KEY (RoomNum,StreetNum, StreetName, PostalCode) REFERENCES Room (RoomNum,StreetNum, StreetName, PostalCode),
+    PRIMARY KEY (employee_id, RoomNum,StreetNum, StreetName, PostalCode, username, reservation_id)
 );
 
 -- Create Customers table
@@ -247,12 +251,12 @@ INSERT INTO Customers (username, name, SIN, address) VALUES
                                                          ('michael_brown', 'Michael Brown', '321987654', '654 Cedar Rd, Countryside');
 
 
-INSERT INTO Reservation (employee_id, RoomNum, username, startDate, endDate) VALUES
-                                                                                 (1, 1, 'john_doe', '2024-03-15', '2024-03-20'),
-                                                                                 (2, 101, 'jane_smith', '2024-03-18', '2024-03-22'),
-                                                                                 (3, 201, 'alex_jones', '2024-03-20', '2024-03-25'),
-                                                                                 (4, 301, 'emily_wang', '2024-03-22', '2024-03-27'),
-                                                                                 (5, 401, 'michael_brown', '2024-03-25', '2024-03-30');
+INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES
+                                                                                 (1, 1, 100, 'Main St', 'A1A1A1', 'john_doe', '2024-03-15', '2024-03-20'),
+                                                                                 (2, 101, 200, 'Elm St', 'B2B2B2', 'jane_smith', '2024-03-18', '2024-03-22'),
+                                                                                 (3, 201, 300, 'Maple Ave', 'C3C3C3', 'alex_jones', '2024-03-20', '2024-03-25'),
+                                                                                 (4, 301, 400, 'Oak St', 'D4D4D4', 'emily_wang', '2024-03-22', '2024-03-27'),
+                                                                                 (5, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-03-25', '2024-03-30');
 
 INSERT INTO Archive (archive_id, employee_id, roomNum, StreetNum, StreetName, PostalCode, hotelChain, customer) VALUES
 (1, 1, 1, 100, 'Main St', 'A1A1A1', 'Marriott', 'john_doe'),
