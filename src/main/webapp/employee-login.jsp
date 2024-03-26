@@ -14,7 +14,7 @@
             <form action="employee-login-controller.jsp" method="POST">
                 <label id="login-declaration" for="employee-id">Please enter your Employee ID: </label><br>
                 <br>
-                <input type="text" id="employee-id" name="employee-id" required><br>
+                <input type="text" id="employee-id" name="employee-id" required  onkeypress="return isNumberKey(event)"><br>
                 <br>
                 <p id="loginFailedMessage">Entered Employee ID could not be found, please try again! You can contact your hotel manager to receive your Employee ID if forgotten</p>
                 <input id="employee-login-button-2" type="submit" value="Login">
@@ -27,5 +27,6 @@
                 document.getElementById("loginFailedMessage").innerHTML = "";
             }
         </script>
+        <script src="index.js"></script>
     </body>
 </html>
