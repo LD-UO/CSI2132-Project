@@ -28,7 +28,7 @@
                 <form action="checkout.jsp" method="POST">
                 <input type="hidden" id="currentRoomNumber" name="currentRoomNumber" value=<%= r.getRoomNum() %>>
                 <input type="hidden" id="currentStreetNum" name="currentStreetNum" value=<%= r.getStreetNum() %>>
-                <input type="hidden" id="currentStreetName" name="currentStreetName" value=<%= r.getStreetName() %>>
+                <input type="hidden" id="currentStreetName" name="currentStreetName" value='<%= r.getStreetName() %>'>
                 <input type="hidden" id="currentPostalCode" name="currentPostalCode" value=<%= r.getPostalCode() %>>
                 <input type="hidden" id="currentPrice" name="currentPrice" value=<%= r.getPrice() %>>
                 <input type="hidden" id="currentTv" name="currentTv" value=<%= r.isTv() %>>

@@ -29,13 +29,6 @@
             <form id="manage-employees" action="" method="POST">
                 <input type="submit" id="view-assigned-reservations-button" value="Employee Management">
             </form>
-            <form id="manage-hotels" action="" method="POST">
-                <input type="submit" id="view-assigned-reservations-button" value="Manage Hotel">
-            </form>
-            <!-- Hotel Chain Manager space -->
-            <form id="manage-franchise" action="" method="POST">
-                <input type="submit" id="view-assigned-reservations-button" value="Franchise Management">
-            </form>
             <!-- TODO: Add some validation functionality to ensure that not all employees can access all of the sections-->
         </div>
     </body>

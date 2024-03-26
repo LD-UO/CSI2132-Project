@@ -12,7 +12,7 @@
     Reservation r = new Reservation(LoginCheck.getUserName());
 
     try {
-        reservationCreated = r.makeReservation(currentRoom, startDate, endDate);
+        reservationCreated = r.makeReservation(currentRoom, startDate, endDate, currentRoom.getStreetNum(), currentRoom.getStreetName(), currentRoom.getPostalCode(), LoginCheck.getUserName());
     } catch (Exception e){
     %>
         <script>

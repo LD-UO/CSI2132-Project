@@ -27,6 +27,14 @@ public class Room {
     public Room(){
         // Creating an empty constructor so I can create a Room instance to access the findAvailableRooms method
     }
+
+    // Creating a separate constructor for employee functionality
+    public Room(int roomNum, int streetNum, String streetname, String postalCode){
+        this.roomNum = roomNum;
+        this.streetNum = streetNum;
+        this.streetName = streetname;
+        this.postalCode = postalCode;
+    }
     /**
      * Constructor
      * @param roomNum
@@ -193,9 +201,14 @@ public class Room {
         return availableRooms;
     }
 
-    public static void checkIn(Room room) {
+    public static boolean checkIn(Room room) {
+        System.out.println(room.getRoomNum());
+        System.out.println(room.getStreetNum());
+        System.out.println(room.getStreetName());
+        System.out.println(room.getPostalCode());
         // SQL query to update the 'Available' column for a specific room
-        String sql = "UPDATE Room SET Available = FALSE WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
+        String sql = "UPDATE room SET available = FALSE WHERE roomnum = ? AND streetnum = ? AND streetname = ? AND postalcode = ?";
+        boolean success = false;
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -208,15 +221,17 @@ public class Room {
 
             // Execute the update
             int rowsAffected = pstmt.executeUpdate();
-
             if (rowsAffected > 0) {
                 System.out.println("Room checked in");
+                success = true;
             } else {
                 System.err.println("Cannot check into room.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return success;
     }
 
     public static void checkOut(Room room) {

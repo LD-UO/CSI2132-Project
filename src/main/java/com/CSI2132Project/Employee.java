@@ -130,11 +130,11 @@ public class Employee {
         // Include a join with the Room table to check room availability and compare startDate with the current date
         String sql = "SELECT Reservation.* FROM Reservation " +
                 "JOIN Room ON Reservation.RoomNum = Room.RoomNum " +
-                "AND Reservation.StreetNum = Room.StreetNum " +
-                "AND Reservation.StreetName = Room.StreetName " +
-                "AND Reservation.PostalCode = Room.PostalCode " +
+                "AND Reservation.streetnum = Room.streetnum " +
+                "AND Reservation.streetname = Room.streetname " +
+                "AND Reservation.postalcode = Room.postalcode " +
                 "WHERE Reservation.employee_id = ? " +
-                "AND (Room.Available = TRUE OR Reservation.startDate > CURRENT_DATE);";
+                "AND (Room.Available = TRUE AND Reservation.startDate >= CURRENT_DATE);";
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {

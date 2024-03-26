@@ -375,7 +375,44 @@ body {
     width: 100%;
 }
 
-td {
+td,th {
     padding: 20px;
     color: white;
+}
+
+th {
+    text-align: left;
+}
+#checkin-button{
+    border: none;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    font-family: "DM Serif Display";
+}
+
+#success {
+    color: green;
+    width: 95%;
+    background-color: rgb(144, 238, 144);
+    padding: 5px;
+    border: 2px solid green;
+    animation: hide 0s ease-in 5s forwards;
+}
+
+#failure {
+    color: red;
+    width: 95%;
+    background-color: rgb(255, 204, 203);
+    padding: 5px;
+    border: 2px solid red;
+    animation: hide 0s ease-in 3s forwards;
+}
+
+@keyframes hide {
+    to {
+        width: 0;
+        height: 0;
+        display: none;
+    }
 }
