@@ -2,6 +2,9 @@ package com.CSI2132Project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Customer class to store customer information
@@ -89,6 +92,35 @@ public class Customer {
         }
     }
 
+    /**
+     * Retrieves all customers from the database.
+     * @return A List of Customer objects.
+     * @throws Exception If an error occurs during database access.
+     */
+    public static List<Customer> getAllCustomers() throws Exception {
+        List<Customer> customers = new ArrayList<>();
+        ConnectionDB db = new ConnectionDB();
 
+        String sql = "SELECT * FROM Customers;"; //simple get all customers
+
+        try (Connection con = db.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Customer customer = new Customer(
+                        rs.getString("username"),
+                        rs.getString("name"),
+                        rs.getString("SIN"),
+                        rs.getString("address")
+                );
+                customers.add(customer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve customers: " + e.getMessage());
+        }
+        return customers;
+    }
 
 }
