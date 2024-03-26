@@ -119,9 +119,22 @@ public class Employee {
         return exists;
     }
 
+    /**
+     * Views reservations for an employee where the reservation's start date hasn't arrived yet or if the room is available.
+     * @param employeeID The employee ID to view reservations for.
+     * @return A list of reservations meeting the criteria.
+     */
     public List<Reservation> viewMyReservations(int employeeID) {
         List<Reservation> myReservations = new ArrayList<>();
-        String sql = "SELECT * FROM Reservation WHERE employee_id = ?"; //gets all reservations for THIS employee
+
+        // Include a join with the Room table to check room availability and compare startDate with the current date
+        String sql = "SELECT Reservation.* FROM Reservation " +
+                "JOIN Room ON Reservation.RoomNum = Room.RoomNum " +
+                "AND Reservation.StreetNum = Room.StreetNum " +
+                "AND Reservation.StreetName = Room.StreetName " +
+                "AND Reservation.PostalCode = Room.PostalCode " +
+                "WHERE Reservation.employee_id = ? " +
+                "AND (Room.Available = TRUE OR Reservation.startDate > CURRENT_DATE);";
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -130,16 +143,17 @@ public class Employee {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                // Assuming Reservation constructor and attributes
                 Reservation reservation = new Reservation(
                         rs.getInt("reservation_id"),
                         rs.getInt("RoomNum"),
                         rs.getString("username"),
-                        rs.getString("startDate"),
-                        rs.getString("endDate"),
+                        rs.getDate("startDate").toString(),
+                        rs.getDate("endDate").toString(),
                         rs.getInt("StreetNum"),
                         rs.getString("StreetName"),
                         rs.getString("PostalCode")
-                ); //create reservation object through iteration and add to arraylist of reservations
+                );
                 myReservations.add(reservation);
             }
         } catch (Exception e) {
@@ -147,6 +161,5 @@ public class Employee {
         }
         return myReservations;
     }
-
 
 }
