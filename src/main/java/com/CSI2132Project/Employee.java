@@ -210,6 +210,48 @@ public class Employee {
         }
     }
 
+    /**
+     * Retrieves all employees working at a specific hotel instance identified by its address.
+     *
+     * @param streetNum The street number of the hotel.
+     * @param streetName The street name of the hotel.
+     * @param postalCode The postal code of the hotel.
+     * @return A list of Employee objects representing all employees working at the specified hotel.
+     * @throws Exception If an error occurs during database access.
+     */
+    public static List<Employee> getAllEmployeesAtHotel(int streetNum, String streetName, String postalCode) throws Exception {
+        List<Employee> employees = new ArrayList<>();
+        ConnectionDB db = new ConnectionDB();
+
+        String sql = "SELECT * FROM Employee WHERE StreetNum = ? AND StreetName = ? AND PostalCode = ?;"; //join these attrs with PK of hotelinstance
+
+        try (Connection con = db.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, streetNum);
+            ps.setString(2, streetName);
+            ps.setString(3, postalCode);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Employee employee = new Employee(
+                        rs.getInt("employee_id"),
+                        rs.getString("streetName"),
+                        rs.getInt("streetNum"),
+                        rs.getString("postalCode"),
+                        rs.getString("name"),
+                        rs.getString("phone"),
+                        rs.getString("position"),
+                        rs.getString("SIN")
+                );
+                employees.add(employee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve employees for the specified hotel instance: " + e.getMessage());
+        }
+        return employees;
+    }
 
 
 }
