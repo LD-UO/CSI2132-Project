@@ -48,27 +48,47 @@ public class Customer {
      * @param customer The customer to be added to the database.
      * @throws Exception Throws an exception if the database operation fails.
      */
-    protected static void addCustomer(Customer customer) throws Exception {
+    public static void addCustomer(Customer customer) throws Exception {
         ConnectionDB db = new ConnectionDB();
-        Connection con = null;
-        try {
-            con = db.getConnection();
-            String insertQuery = "INSERT INTO Customers (username, name, sin, address) VALUES (?, ?, ?, ?)"; //parameterized statement
+        try (Connection con = db.getConnection()) {
+            String sql = "INSERT INTO Customers (username, name, SIN, address) VALUES (?, ?, ?, ?)";
 
-            PreparedStatement statement = con.prepareStatement(insertQuery);
-            statement.setString(1, customer.getUsername());
-            statement.setString(2, customer.getName());
-            statement.setString(3, customer.getSIN());
-            statement.setString(4, customer.getAddress());
+            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setString(1, customer.getUsername());
+                pstmt.setString(2, customer.getName());
+                pstmt.setString(3, customer.getSIN());
+                pstmt.setString(4, customer.getAddress());
 
-            statement.executeUpdate(); //executes CRUD statements that modify DB but don't return anything, we are INSERTING here
-
-            statement.close();
-            con.close();
-            db.close();
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new Exception("Inserting customer failed, no rows affected.");
+                }
+            }
         } catch (Exception e) {
-            throw new Exception("Error adding customer: " + e.getMessage());
+            throw new Exception("Error adding customer: " + e.getMessage(), e);
         }
     }
+
+    public static void deleteCustomer(Customer customer) throws Exception {
+        ConnectionDB db = new ConnectionDB();
+        try (Connection con = db.getConnection()) {
+            String sql = "DELETE FROM Customers WHERE username = ?";
+
+            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setString(1, customer.getUsername());
+
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new Exception("Deleting customer failed, no rows affected.");
+                } else {
+                    System.out.println("Customer deleted successfully.");
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Error deleting customer: " + e.getMessage(), e);
+        }
+    }
+
+
 
 }

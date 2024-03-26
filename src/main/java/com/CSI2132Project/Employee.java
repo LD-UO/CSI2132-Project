@@ -162,4 +162,54 @@ public class Employee {
         return myReservations;
     }
 
+    public static void addEmployee(Employee employee) {
+        String sql = "INSERT INTO Employee (employee_id, streetName, streetNum, postalCode, name, phone, position, SIN) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, employee.getEmployeeId());
+            pstmt.setString(2, employee.getStreetName());
+            pstmt.setInt(3, employee.getStreetNum());
+            pstmt.setString(4, employee.getPostalCode());
+            pstmt.setString(5, employee.getName());
+            pstmt.setString(6, employee.getPhone());
+            pstmt.setString(7, employee.getPosition());
+            pstmt.setString(8, employee.getSIN());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Employee added successfully.");
+            } else {
+                System.err.println("Failed to add employee.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteEmployee(Employee employee) {
+        String sql = "DELETE FROM Employee WHERE employee_id = ?;";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, employee.getEmployeeId());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Employee deleted successfully.");
+            } else {
+                System.err.println("Failed to delete employee. Employee may not exist or could not be found with the given ID.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

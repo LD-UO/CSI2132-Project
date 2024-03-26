@@ -279,16 +279,17 @@ public class Room {
     }
 
 
-    public static void deleteRoom(int roomNum, int streetNum, String streetName, String postalCode) {
+    public static void deleteRoom(Room room) {
         String sql = "DELETE FROM Room WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?;";
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setInt(1, roomNum);
-            pstmt.setInt(2, streetNum);
-            pstmt.setString(3, streetName);
-            pstmt.setString(4, postalCode);
+            // Setting parameters for the PreparedStatement from the Room object
+            pstmt.setInt(1, room.getRoomNum());
+            pstmt.setInt(2, room.getStreetNum());
+            pstmt.setString(3, room.getStreetName());
+            pstmt.setString(4, room.getPostalCode());
 
             int rowsAffected = pstmt.executeUpdate();
 
@@ -301,6 +302,7 @@ public class Room {
             e.printStackTrace();
         }
     }
+
 
 
 
