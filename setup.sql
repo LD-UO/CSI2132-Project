@@ -126,7 +126,6 @@ CREATE TABLE Archive
     StreetNum  INT         NOT NULL,
     StreetName VARCHAR(30) NOT NULL,
     PostalCode CHAR(6)     NOT NULL,
-    hotelChain   VARCHAR(20) NOT NULL,
     customer     VARCHAR(30) NOT NULL,
     PRIMARY KEY (archive_id)
 );
@@ -208,27 +207,27 @@ INSERT INTO Employee (employee_id, StreetNum, StreetName, PostalCode, Name, Phon
                                                                                                       (13, 100, 'Main St', 'A1A1A1', 'Mason Martinez', '3456789012', 'Housekeeping', '345678902'),
                                                                                                       (14, 100, 'Main St', 'A1A1A1', 'Sophia Martinez', '4567890123', 'Chef', '456789013'),
                                                                                                       (15, 100, 'Main St', 'A1A1A1', 'Jacob Brown', '5678901234', 'Maintenance', '567890124'),
-                                                                                                    (16, 100, 'Main St', 'A1A1A1', 'Ella Johnson', '6789012345', 'Receptionist', '123456782'),
-                                                                                                    (17, 200, 'Elm St', 'B2B2B2', 'Alexander Brown', '7890123456', 'Receptionist', '234567892'),
-                                                                                                    (18, 300, 'Maple Ave', 'C3C3C3', 'Samantha Smith', '8901234567', 'Housekeeping', '345678903'),
-                                                                                                    (19, 400, 'Oak St', 'D4D4D4', 'Ethan Taylor', '9012345678', 'Chef', '456789014'),
-                                                                                                    (20, 500, 'Cedar Rd', 'E5E5E5', 'Madison Wilson', '0123456789', 'Maintenance', '567890125'),
-                                                                                                    (21, 101, 'Pine St', 'F6F6F6', 'Ava Anderson', '1234567890', 'Receptionist', '678901235'),
-                                                                                                    (22, 201, 'Birch St', 'G7G7G7', 'Benjamin Martinez', '2345678901', 'Receptionist', '789012346'),
-                                                                                                    (23, 300, 'Maple Ave', 'C3C3C3', 'Evelyn Garcia', '3456789012', 'Housekeeping', '890123457'),
-                                                                                                    (24, 400, 'Oak St', 'D4D4D4', 'Christopher Hernandez', '4567890123', 'Chef', '901234568'),
-                                                                                                    (25, 500, 'Cedar Rd', 'E5E5E5', 'Addison Brown', '5678901234', 'Maintenance', '012345679'),
-                                                                                                    (26, 101, 'Pine St', 'F6F6F6', 'Liam Johnson', '6789012345', 'Receptionist', '123456783'),
-                                                                                                    (27, 201, 'Birch St', 'G7G7G7', 'Chloe Smith', '7890123456', 'Receptionist', '234567893'),
-                                                                                                    (28, 300, 'Maple Ave', 'C3C3C3', 'Grace Taylor', '8901234567', 'Housekeeping', '345678904'),
-                                                                                                    (29, 400, 'Oak St', 'D4D4D4', 'Lucas Wilson', '9012345678', 'Chef', '456789015'),
-                                                                                                    (30, 500, 'Cedar Rd', 'E5E5E5', 'Avery Martinez', '0123456789', 'Maintenance', '567890126'),
-                                                                                                    (31, 101, 'Pine St', 'F6F6F6', 'Elena Anderson', '1234567890', 'Receptionist', '678901236'),
-                                                                                                    (32, 201, 'Birch St', 'G7G7G7', 'Dylan Martinez', '2345678901', 'Receptionist', '789012347'),
-                                                                                                    (33, 300, 'Maple Ave', 'C3C3C3', 'Zoe Garcia', '3456789012', 'Housekeeping', '890123458'),
-                                                                                                    (34, 400, 'Oak St', 'D4D4D4', 'Miles Hernandez', '4567890123', 'Chef', '901234569'),
-                                                                                                    (35, 500, 'Cedar Rd', 'E5E5E5', 'Hannah Brown', '5678901234', 'Maintenance', '012345680'),
-                                                                                                    (36, 101, 'Pine St', 'F6F6F6', 'Natalie Johnson', '6789012345', 'Receptionist', '123456784');
+                                                                                                      (16, 100, 'Main St', 'A1A1A1', 'Ella Johnson', '6789012345', 'Receptionist', '123456782'),
+                                                                                                      (17, 200, 'Elm St', 'B2B2B2', 'Alexander Brown', '7890123456', 'Receptionist', '234567892'),
+                                                                                                      (18, 300, 'Maple Ave', 'C3C3C3', 'Samantha Smith', '8901234567', 'Housekeeping', '345678903'),
+                                                                                                      (19, 400, 'Oak St', 'D4D4D4', 'Ethan Taylor', '9012345678', 'Chef', '456789014'),
+                                                                                                      (20, 500, 'Cedar Rd', 'E5E5E5', 'Madison Wilson', '0123456789', 'Maintenance', '567890125'),
+                                                                                                      (21, 101, 'Pine St', 'F6F6F6', 'Ava Anderson', '1234567890', 'Receptionist', '678901235'),
+                                                                                                      (22, 201, 'Birch St', 'G7G7G7', 'Benjamin Martinez', '2345678901', 'Receptionist', '789012346'),
+                                                                                                      (23, 300, 'Maple Ave', 'C3C3C3', 'Evelyn Garcia', '3456789012', 'Housekeeping', '890123457'),
+                                                                                                      (24, 400, 'Oak St', 'D4D4D4', 'Christopher Hernandez', '4567890123', 'Chef', '901234568'),
+                                                                                                      (25, 500, 'Cedar Rd', 'E5E5E5', 'Addison Brown', '5678901234', 'Maintenance', '012345679'),
+                                                                                                      (26, 101, 'Pine St', 'F6F6F6', 'Liam Johnson', '6789012345', 'Receptionist', '123456783'),
+                                                                                                      (27, 201, 'Birch St', 'G7G7G7', 'Chloe Smith', '7890123456', 'Receptionist', '234567893'),
+                                                                                                      (28, 300, 'Maple Ave', 'C3C3C3', 'Grace Taylor', '8901234567', 'Housekeeping', '345678904'),
+                                                                                                      (29, 400, 'Oak St', 'D4D4D4', 'Lucas Wilson', '9012345678', 'Chef', '456789015'),
+                                                                                                      (30, 500, 'Cedar Rd', 'E5E5E5', 'Avery Martinez', '0123456789', 'Maintenance', '567890126'),
+                                                                                                      (31, 101, 'Pine St', 'F6F6F6', 'Elena Anderson', '1234567890', 'Receptionist', '678901236'),
+                                                                                                      (32, 201, 'Birch St', 'G7G7G7', 'Dylan Martinez', '2345678901', 'Receptionist', '789012347'),
+                                                                                                      (33, 300, 'Maple Ave', 'C3C3C3', 'Zoe Garcia', '3456789012', 'Housekeeping', '890123458'),
+                                                                                                      (34, 400, 'Oak St', 'D4D4D4', 'Miles Hernandez', '4567890123', 'Chef', '901234569'),
+                                                                                                      (35, 500, 'Cedar Rd', 'E5E5E5', 'Hannah Brown', '5678901234', 'Maintenance', '012345680'),
+                                                                                                      (36, 101, 'Pine St', 'F6F6F6', 'Natalie Johnson', '6789012345', 'Receptionist', '123456784');
 
 INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) VALUES
 -- Marriott
@@ -271,21 +270,6 @@ INSERT INTO Customers (username, name, SIN, address) VALUES
                                                          ('emily_wang', 'Emily Wang', '654321987', '987 Oak St, Suburb'),
                                                          ('michael_brown', 'Michael Brown', '321987654', '654 Cedar Rd, Countryside');
 
-
-INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES
-                                                                                 (1, 1, 100, 'Main St', 'A1A1A1', 'john_doe', '2024-03-15', '2024-03-20'),
-                                                                                 (2, 101, 200, 'Elm St', 'B2B2B2', 'jane_smith', '2024-03-18', '2024-03-22'),
-                                                                                 (3, 201, 300, 'Maple Ave', 'C3C3C3', 'alex_jones', '2024-03-20', '2024-03-25'),
-                                                                                 (4, 301, 400, 'Oak St', 'D4D4D4', 'emily_wang', '2024-03-22', '2024-03-27'),
-                                                                                 (5, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-03-25', '2024-03-30');
-
-INSERT INTO Archive (archive_id, employee_id, roomNum, StreetNum, StreetName, PostalCode, hotelChain, customer) VALUES
-(1, 1, 1, 100, 'Main St', 'A1A1A1', 'Marriott', 'john_doe'),
-(2, 2, 101, 200, 'Elm St', 'B2B2B2', 'Hilton', 'jane_smith'),
-(3, 3, 201, 300, 'Maple Ave', 'C3C3C3', 'Hyatt', 'alex_jones'),
-(4, 4, 301, 400, 'Oak St', 'D4D4D4', 'Holiday Inn', 'emily_wang'),
-(5, 5, 401, 500, 'Cedar Rd', 'E5E5E5', 'Sheraton', 'michael_brown');
-
 UPDATE HotelInstance SET Manager = 1 WHERE (PostalCode = 'A1A1A1');
 UPDATE HotelInstance SET Manager = 2 WHERE (PostalCode = 'B2B2B2');
 UPDATE HotelInstance SET Manager = 3 WHERE (PostalCode = 'C3C3C3');
@@ -294,3 +278,57 @@ UPDATE HotelInstance SET Manager = 5 WHERE (PostalCode = 'E5E5E5');
 UPDATE HotelInstance SET Manager = 6 WHERE (PostalCode = 'F6F6F6');
 UPDATE HotelInstance SET Manager = 7 WHERE (PostalCode = 'G7G7G7');
 
+CREATE FUNCTION decrement_total_rooms()
+    RETURNS trigger AS
+    $BODY$
+BEGIN
+    IF(HotelInstance.PostalCode = OLD.room.PostalCode)THEN
+UPDATE HotelInstance
+SET NumOfRoom = NumOfRoom - 1;
+END IF;
+RETURN NEW;
+END
+$BODY$ LANGUAGE plpgsql;
+
+CREATE FUNCTION increment_total_rooms()
+    RETURNS trigger AS
+    $BODY$
+BEGIN
+    IF(HotelInstance.PostalCode = NEW.room.PostalCode)THEN
+UPDATE HotelInstance
+SET NumOfRoom = NumOfRoom + 1;
+END IF;
+RETURN NEW;
+END
+$BODY$ LANGUAGE plpgsql;
+
+CREATE FUNCTION archive_room()
+    RETURNS trigger AS
+    $BODY$
+BEGIN
+INSERT INTO Archive(employee_id, roomNum, StreetNum, StreetName, PostalCode, customer)
+Values(New.employee_id, New.roomnum, New.StreetNum, New.StreetName, New.PostalCode, New.username);
+RETURN NEW;
+END
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER deleted_room
+    AFTER DELETE ON Room
+    FOR EACH ROW
+    EXECUTE PROCEDURE decrement_total_rooms();
+
+CREATE TRIGGER added_room
+    AFTER DELETE ON Room
+    FOR EACH ROW
+    EXECUTE PROCEDURE increment_total_rooms();
+
+CREATE TRIGGER archieve_reservation
+    AFTER INSERT ON reservation
+    FOR EACH ROW
+    EXECUTE PROCEDURE archive_room();
+
+INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(1, 1, 100, 'Main St', 'A1A1A1', 'john_doe', '2024-03-15', '2024-03-20');
+INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(2, 101, 200, 'Elm St', 'B2B2B2', 'jane_smith', '2024-03-18', '2024-03-22');
+INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(3, 201, 300, 'Maple Ave', 'C3C3C3', 'alex_jones', '2024-03-20', '2024-03-25');
+INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(4, 301, 400, 'Oak St', 'D4D4D4', 'emily_wang', '2024-03-22', '2024-03-27');
+INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(5, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-03-25', '2024-03-30');
