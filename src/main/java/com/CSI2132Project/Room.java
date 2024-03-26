@@ -245,5 +245,63 @@ public class Room {
         }
     }
 
+    public static void addRoom(Room room) {
+        String sql = "INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, room.getRoomNum());
+            pstmt.setInt(2, room.getStreetNum());
+            pstmt.setString(3, room.getStreetName());
+            pstmt.setString(4, room.getPostalCode());
+            pstmt.setDouble(5, room.getPrice());
+            pstmt.setBoolean(6, room.isTv());
+            pstmt.setBoolean(7, room.isAc());
+            pstmt.setBoolean(8, room.isFridge());
+            pstmt.setInt(9, room.getCapacity());
+            pstmt.setBoolean(10, room.isExtendable());
+            pstmt.setString(11, room.getDefects());
+            pstmt.setString(12, room.getViewDescription());
+            pstmt.setBoolean(13, room.isAvailable());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Room added successfully.");
+            } else {
+                System.err.println("Failed to add room.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void deleteRoom(int roomNum, int streetNum, String streetName, String postalCode) {
+        String sql = "DELETE FROM Room WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?;";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomNum);
+            pstmt.setInt(2, streetNum);
+            pstmt.setString(3, streetName);
+            pstmt.setString(4, postalCode);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Room deleted successfully.");
+            } else {
+                System.err.println("Failed to delete room. Room may not exist.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
