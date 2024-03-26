@@ -120,25 +120,40 @@ public class Reservation {
     }
 
 
-    public boolean makeReservation (Room r, String startDate, String endDate, int streetNum, String streetName, String postalCode) throws Exception {
+    public boolean makeReservation(Room r, String startDate, String endDate, int streetNum, String streetName, String postalCode, String username) throws Exception {
         if (!r.isAvailable()){
-            return false; //room not available
+            return false; // Room not available
         }
 
         try (Connection con = new ConnectionDB().getConnection()) {
-            // Select a random employee
-            String selectEmployeeSql = "SELECT employee_id FROM Employee ORDER BY RANDOM() LIMIT 1";
-            int employeeId = -1; //if error
-            try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(selectEmployeeSql)) {
-                if (rs.next()) {
-                    employeeId = rs.getInt("employee_id");
-                } else {
-                    throw new Exception("No employees found"); // handle error
+            // Select an employee who works at the hotel where the room is located
+            String selectEmployeeSql = "SELECT Employee.employee_id " +
+                    "FROM Employee " +
+                    "JOIN HotelInstance ON Employee.StreetNum = HotelInstance.StreetNum " +
+                    "AND Employee.StreetName = HotelInstance.StreetName " +
+                    "AND Employee.PostalCode = HotelInstance.PostalCode " +
+                    "WHERE HotelInstance.StreetNum = ? " +
+                    "AND HotelInstance.StreetName = ? " +
+                    "AND HotelInstance.PostalCode = ? " +
+                    "ORDER BY RANDOM() LIMIT 1"; // Assumes employees are linked to hotels by address
+
+            int employeeId = -1; // Placeholder for employee ID
+            try (PreparedStatement pstmt = con.prepareStatement(selectEmployeeSql)) {
+                pstmt.setInt(1, streetNum);
+                pstmt.setString(2, streetName);
+                pstmt.setString(3, postalCode);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        employeeId = rs.getInt("employee_id");
+                    } else {
+                        throw new Exception("No employees found for the specified hotel"); // Handle no employee found
+                    }
                 }
             }
 
-            // Insert the reservation into the database
-            String insertSql = "INSERT INTO Reservation (employee_id, RoomNum, username, startDate, endDate, streetNum, streetName, postalCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            // Insert the reservation into the database, linking it to the selected employee
+            String insertSql = "INSERT INTO Reservation (employee_id, RoomNum, username, startDate, endDate, StreetNum, StreetName, PostalCode) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = con.prepareStatement(insertSql)) {
                 pstmt.setInt(1, employeeId);
                 pstmt.setInt(2, r.getRoomNum()); // Assuming Room class has a getRoomNum method
@@ -149,18 +164,19 @@ public class Reservation {
                 pstmt.setString(7, streetName);
                 pstmt.setString(8, postalCode);
 
-
                 int affectedRows = pstmt.executeUpdate();
-                if (affectedRows > 0) {
-                    return true; //successful reservation
+                if (affectedRows == 0) {
+                    throw new Exception("Failed to create reservation");
                 }
+                return true; // Reservation successful
             }
         } catch (Exception e) {
+            System.err.println("Reservation failed: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
-
-        return false;
     }
+
 
 
 

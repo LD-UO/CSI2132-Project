@@ -220,30 +220,64 @@ public class Room {
     }
 
     public static void checkOut(Room room) {
-        // SQL query to update the 'Available' column for a specific room
-        String sql = "UPDATE Room SET Available = TRUE WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
+        ConnectionDB db = new ConnectionDB();
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            // Start transaction
+            con.setAutoCommit(false);
 
-        try (Connection con = new ConnectionDB().getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            // First, delete the reservations for the room
+            String deleteReservationsSql = "DELETE FROM Reservation WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
+            try (PreparedStatement deleteStmt = con.prepareStatement(deleteReservationsSql)) {
+                deleteStmt.setInt(1, room.getRoomNum());
+                deleteStmt.setInt(2, room.getStreetNum());
+                deleteStmt.setString(3, room.getStreetName());
+                deleteStmt.setString(4, room.getPostalCode());
 
-            // Setting parameters for the PreparedStatement
-            pstmt.setInt(1, room.getRoomNum());
-            pstmt.setInt(2, room.getStreetNum());
-            pstmt.setString(3, room.getStreetName());
-            pstmt.setString(4, room.getPostalCode());
-
-            // Execute the update
-            int rowsAffected = pstmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("Room checkout successful.");
-            } else {
-                System.out.println("Room checkout not successful.");
+                int deletedRows = deleteStmt.executeUpdate();
+                System.out.println(deletedRows + " reservation(s) deleted.");
             }
+
+            // Next, update the room's availability
+            String updateRoomSql = "UPDATE Room SET Available = TRUE WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
+            try (PreparedStatement updateStmt = con.prepareStatement(updateRoomSql)) {
+                updateStmt.setInt(1, room.getRoomNum());
+                updateStmt.setInt(2, room.getStreetNum());
+                updateStmt.setString(3, room.getStreetName());
+                updateStmt.setString(4, room.getPostalCode());
+
+                int rowsAffected = updateStmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Room checkout successful.");
+                } else {
+                    System.out.println("Room checkout not successful.");
+                }
+            }
+
+            // Commit transaction
+            con.commit();
         } catch (Exception e) {
+            try {
+                if (con != null) {
+                    con.rollback(); // Rollback transaction in case of error
+                }
+            } catch (Exception rollbackEx) {
+                System.err.println("Rollback failed: " + rollbackEx.getMessage());
+            }
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.setAutoCommit(true); // Reset auto-commit to true
+                    con.close();
+                } catch (Exception closeEx) {
+                    System.err.println("Failed to close connection: " + closeEx.getMessage());
+                }
+            }
         }
     }
+
 
     public static void addRoom(Room room) {
         String sql = "INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) " +
