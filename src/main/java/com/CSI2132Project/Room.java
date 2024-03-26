@@ -193,7 +193,57 @@ public class Room {
         return availableRooms;
     }
 
+    public static void checkIn(Room room) {
+        // SQL query to update the 'Available' column for a specific room
+        String sql = "UPDATE Room SET Available = FALSE WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
 
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            // Setting parameters for the PreparedStatement
+            pstmt.setInt(1, room.getRoomNum());
+            pstmt.setInt(2, room.getStreetNum());
+            pstmt.setString(3, room.getStreetName());
+            pstmt.setString(4, room.getPostalCode());
+
+            // Execute the update
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Room checked in");
+            } else {
+                System.err.println("Cannot check into room.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void checkOut(Room room) {
+        // SQL query to update the 'Available' column for a specific room
+        String sql = "UPDATE Room SET Available = TRUE WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            // Setting parameters for the PreparedStatement
+            pstmt.setInt(1, room.getRoomNum());
+            pstmt.setInt(2, room.getStreetNum());
+            pstmt.setString(3, room.getStreetName());
+            pstmt.setString(4, room.getPostalCode());
+
+            // Execute the update
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Room checkout successful.");
+            } else {
+                System.out.println("Room checkout not successful.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
