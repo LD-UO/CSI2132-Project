@@ -3,7 +3,8 @@ package com.CSI2132Project;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a reservation in the hotel reservation system.
@@ -177,7 +178,40 @@ public class Reservation {
         }
     }
 
+    /**
+     * Fetches all reservations that haven't started yet.
+     * @return A List of Reservation objects for all upcoming reservations.
+     * @throws Exception If an error occurs during database access.
+     */
+    public static List<Reservation> getUpcomingReservations() throws Exception {
+        List<Reservation> upcomingReservations = new ArrayList<>();
+        ConnectionDB db = new ConnectionDB();
 
+        String sql = "SELECT * FROM Reservation WHERE startDate > CURRENT_DATE ORDER BY startDate;"; //order for efficiency
+
+        try (Connection con = db.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Reservation reservation = new Reservation(
+                        rs.getInt("employee_id"),
+                        rs.getInt("roomNum"),
+                        rs.getString("username"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate"),
+                        rs.getInt("streetNum"),
+                        rs.getString("streetName"),
+                        rs.getString("postalCode")
+                );
+                upcomingReservations.add(reservation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve upcoming reservations: " + e.getMessage());
+        }
+        return upcomingReservations;
+    }
 
 
 }
