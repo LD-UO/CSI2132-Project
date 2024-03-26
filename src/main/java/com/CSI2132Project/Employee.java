@@ -135,7 +135,10 @@ public class Employee {
                         rs.getInt("RoomNum"),
                         rs.getString("username"),
                         rs.getString("startDate"),
-                        rs.getString("endDate")
+                        rs.getString("endDate"),
+                        rs.getInt("StreetNum"),
+                        rs.getString("StreetName"),
+                        rs.getString("PostalCode")
                 ); //create reservation object through iteration and add to arraylist of reservations
                 myReservations.add(reservation);
             }
