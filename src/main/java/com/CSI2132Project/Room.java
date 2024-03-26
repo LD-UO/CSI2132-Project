@@ -337,7 +337,52 @@ public class Room {
         }
     }
 
+    /**
+     * Retrieves all rooms for a specific hotel instance based on address.
+     * @param streetNum The street number of the hotel.
+     * @param streetName The street name of the hotel.
+     * @param postalCode The postal code of the hotel.
+     * @return A list of Room objects for the specified hotel instance.
+     * @throws Exception If there is an issue accessing the database.
+     */
+    public static List<Room> getAllRoomsInHotel(int streetNum, String streetName, String postalCode) throws Exception {
+        List<Room> rooms = new ArrayList<>();
+        ConnectionDB db = new ConnectionDB();
 
+        String sql = "SELECT * FROM Room WHERE StreetNum = ? AND StreetName = ? AND PostalCode = ? ORDER BY RoomNum;";
+
+        try (Connection con = db.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, streetNum);
+            ps.setString(2, streetName);
+            ps.setString(3, postalCode);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Room room = new Room(
+                        rs.getInt("RoomNum"),
+                        rs.getInt("StreetNum"),
+                        rs.getString("StreetName"),
+                        rs.getString("PostalCode"),
+                        rs.getDouble("Price"),
+                        rs.getBoolean("TV"),
+                        rs.getBoolean("AC"),
+                        rs.getBoolean("Fridge"),
+                        rs.getInt("Capacity"),
+                        rs.getBoolean("IsExtendable"),
+                        rs.getString("Defects"),
+                        rs.getString("ViewDescription"),
+                        rs.getBoolean("Available")
+                );
+                rooms.add(room);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve rooms for the specified hotel instance: " + e.getMessage());
+        }
+        return rooms;
+    }
 
 
 }
