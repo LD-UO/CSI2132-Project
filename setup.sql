@@ -102,8 +102,8 @@ CREATE TABLE Reservation
     reservation_id SERIAL,
     startDate           DATE NOT NULL,
     endDate           DATE NOT NULL,
-    FOREIGN KEY (employee_id) REFERENCES Employee (employee_id),
-    FOREIGN KEY (RoomNum,StreetNum, StreetName, PostalCode) REFERENCES Room (RoomNum,StreetNum, StreetName, PostalCode),
+    FOREIGN KEY (employee_id) REFERENCES Employee (employee_id) ON DELETE CASCADE,
+    FOREIGN KEY (RoomNum,StreetNum, StreetName, PostalCode) REFERENCES Room (RoomNum,StreetNum, StreetName, PostalCode) ON DELETE CASCADE,
     PRIMARY KEY (employee_id, RoomNum,StreetNum, StreetName, PostalCode, username, reservation_id)
 );
 
@@ -133,7 +133,8 @@ CREATE TABLE Archive
 -- Set up foreign keys
 ALTER TABLE Employee
     ADD CONSTRAINT fk_employee_hotel_instance
-        FOREIGN KEY (StreetNum, StreetName, PostalCode) REFERENCES HotelInstance (StreetNum, StreetName, PostalCode);
+        FOREIGN KEY (StreetNum, StreetName, PostalCode) REFERENCES HotelInstance (StreetNum, StreetName, PostalCode) ;
+
 
 ALTER TABLE HotelPhone
     ADD CONSTRAINT fk_hotel_instance_phone
@@ -145,7 +146,7 @@ ALTER TABLE Room
 
 ALTER TABLE Reservation
     ADD CONSTRAINT fk_reservation_customers
-        FOREIGN KEY (username) REFERENCES Customers (username);
+        FOREIGN KEY (username) REFERENCES Customers (username) ON DELETE CASCADE;
 
 INSERT INTO HotelChain (Name, HQ, NumOfHotels) VALUES
                                                    ('Marriott', 'New York', 50),
@@ -282,10 +283,9 @@ CREATE FUNCTION decrement_total_rooms()
     RETURNS trigger AS
     $BODY$
 BEGIN
-    IF(HotelInstance.PostalCode = OLD.room.PostalCode)THEN
 UPDATE HotelInstance
-SET NumOfRoom = NumOfRoom - 1;
-END IF;
+SET NumOfRoom = NumOfRoom - 1
+WHERE PostalCode = OLD.PostalCode;
 RETURN NEW;
 END
 $BODY$ LANGUAGE plpgsql;
@@ -294,10 +294,9 @@ CREATE FUNCTION increment_total_rooms()
     RETURNS trigger AS
     $BODY$
 BEGIN
-    IF(HotelInstance.PostalCode = NEW.room.PostalCode)THEN
 UPDATE HotelInstance
-SET NumOfRoom = NumOfRoom + 1;
-END IF;
+SET NumOfRoom = NumOfRoom + 1
+WHERE PostalCode=NEW.PostalCode;
 RETURN NEW;
 END
 $BODY$ LANGUAGE plpgsql;
@@ -322,7 +321,7 @@ CREATE TRIGGER added_room
     FOR EACH ROW
     EXECUTE PROCEDURE increment_total_rooms();
 
-CREATE TRIGGER archieve_reservation
+CREATE TRIGGER archive_reservation
     AFTER INSERT ON reservation
     FOR EACH ROW
     EXECUTE PROCEDURE archive_room();
@@ -332,3 +331,4 @@ INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(3, 201, 300, 'Maple Ave', 'C3C3C3', 'alex_jones', '2024-03-20', '2024-03-25');
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(4, 301, 400, 'Oak St', 'D4D4D4', 'emily_wang', '2024-03-22', '2024-03-27');
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(5, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-03-25', '2024-03-30');
+INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(8, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-04-25', '2024-04-30');
