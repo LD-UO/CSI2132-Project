@@ -119,9 +119,22 @@ public class Employee {
         return exists;
     }
 
+    /**
+     * Views reservations for an employee where the reservation's start date hasn't arrived yet or if the room is available.
+     * @param employeeID The employee ID to view reservations for.
+     * @return A list of reservations meeting the criteria.
+     */
     public List<Reservation> viewMyReservations(int employeeID) {
         List<Reservation> myReservations = new ArrayList<>();
-        String sql = "SELECT * FROM Reservation WHERE employee_id = ?"; //gets all reservations for THIS employee
+
+        // Include a join with the Room table to check room availability and compare startDate with the current date
+        String sql = "SELECT Reservation.* FROM Reservation " +
+                "JOIN Room ON Reservation.RoomNum = Room.RoomNum " +
+                "AND Reservation.StreetNum = Room.StreetNum " +
+                "AND Reservation.StreetName = Room.StreetName " +
+                "AND Reservation.PostalCode = Room.PostalCode " +
+                "WHERE Reservation.employee_id = ? " +
+                "AND (Room.Available = TRUE OR Reservation.startDate > CURRENT_DATE);";
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -130,19 +143,114 @@ public class Employee {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                // Assuming Reservation constructor and attributes
                 Reservation reservation = new Reservation(
                         rs.getInt("reservation_id"),
                         rs.getInt("RoomNum"),
                         rs.getString("username"),
-                        rs.getString("startDate"),
-                        rs.getString("endDate")
-                ); //create reservation object through iteration and add to arraylist of reservations
+                        rs.getDate("startDate").toString(),
+                        rs.getDate("endDate").toString(),
+                        rs.getInt("StreetNum"),
+                        rs.getString("StreetName"),
+                        rs.getString("PostalCode")
+                );
                 myReservations.add(reservation);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return myReservations;
+    }
+
+    public static void addEmployee(Employee employee) {
+        String sql = "INSERT INTO Employee (employee_id, streetName, streetNum, postalCode, name, phone, position, SIN) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, employee.getEmployeeId());
+            pstmt.setString(2, employee.getStreetName());
+            pstmt.setInt(3, employee.getStreetNum());
+            pstmt.setString(4, employee.getPostalCode());
+            pstmt.setString(5, employee.getName());
+            pstmt.setString(6, employee.getPhone());
+            pstmt.setString(7, employee.getPosition());
+            pstmt.setString(8, employee.getSIN());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Employee added successfully.");
+            } else {
+                System.err.println("Failed to add employee.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteEmployee(Employee employee) {
+        String sql = "DELETE FROM Employee WHERE employee_id = ?;";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, employee.getEmployeeId());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Employee deleted successfully.");
+            } else {
+                System.err.println("Failed to delete employee. Employee may not exist or could not be found with the given ID.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Retrieves all employees working at a specific hotel instance identified by its address.
+     *
+     * @param streetNum The street number of the hotel.
+     * @param streetName The street name of the hotel.
+     * @param postalCode The postal code of the hotel.
+     * @return A list of Employee objects representing all employees working at the specified hotel.
+     * @throws Exception If an error occurs during database access.
+     */
+    public static List<Employee> getAllEmployeesAtHotel(int streetNum, String streetName, String postalCode) throws Exception {
+        List<Employee> employees = new ArrayList<>();
+        ConnectionDB db = new ConnectionDB();
+
+        String sql = "SELECT * FROM Employee WHERE StreetNum = ? AND StreetName = ? AND PostalCode = ?;"; //join these attrs with PK of hotelinstance
+
+        try (Connection con = db.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, streetNum);
+            ps.setString(2, streetName);
+            ps.setString(3, postalCode);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Employee employee = new Employee(
+                        rs.getInt("employee_id"),
+                        rs.getString("streetName"),
+                        rs.getInt("streetNum"),
+                        rs.getString("postalCode"),
+                        rs.getString("name"),
+                        rs.getString("phone"),
+                        rs.getString("position"),
+                        rs.getString("SIN")
+                );
+                employees.add(employee);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve employees for the specified hotel instance: " + e.getMessage());
+        }
+        return employees;
     }
 
 

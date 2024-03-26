@@ -193,7 +193,196 @@ public class Room {
         return availableRooms;
     }
 
+    public static void checkIn(Room room) {
+        // SQL query to update the 'Available' column for a specific room
+        String sql = "UPDATE Room SET Available = FALSE WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
 
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            // Setting parameters for the PreparedStatement
+            pstmt.setInt(1, room.getRoomNum());
+            pstmt.setInt(2, room.getStreetNum());
+            pstmt.setString(3, room.getStreetName());
+            pstmt.setString(4, room.getPostalCode());
+
+            // Execute the update
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Room checked in");
+            } else {
+                System.err.println("Cannot check into room.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void checkOut(Room room) {
+        ConnectionDB db = new ConnectionDB();
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            // Start transaction
+            con.setAutoCommit(false);
+
+            // First, delete the reservations for the room
+            String deleteReservationsSql = "DELETE FROM Reservation WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
+            try (PreparedStatement deleteStmt = con.prepareStatement(deleteReservationsSql)) {
+                deleteStmt.setInt(1, room.getRoomNum());
+                deleteStmt.setInt(2, room.getStreetNum());
+                deleteStmt.setString(3, room.getStreetName());
+                deleteStmt.setString(4, room.getPostalCode());
+
+                int deletedRows = deleteStmt.executeUpdate();
+                System.out.println(deletedRows + " reservation(s) deleted.");
+            }
+
+            // Next, update the room's availability
+            String updateRoomSql = "UPDATE Room SET Available = TRUE WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?";
+            try (PreparedStatement updateStmt = con.prepareStatement(updateRoomSql)) {
+                updateStmt.setInt(1, room.getRoomNum());
+                updateStmt.setInt(2, room.getStreetNum());
+                updateStmt.setString(3, room.getStreetName());
+                updateStmt.setString(4, room.getPostalCode());
+
+                int rowsAffected = updateStmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Room checkout successful.");
+                } else {
+                    System.out.println("Room checkout not successful.");
+                }
+            }
+
+            // Commit transaction
+            con.commit();
+        } catch (Exception e) {
+            try {
+                if (con != null) {
+                    con.rollback(); // Rollback transaction in case of error
+                }
+            } catch (Exception rollbackEx) {
+                System.err.println("Rollback failed: " + rollbackEx.getMessage());
+            }
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.setAutoCommit(true); // Reset auto-commit to true
+                    con.close();
+                } catch (Exception closeEx) {
+                    System.err.println("Failed to close connection: " + closeEx.getMessage());
+                }
+            }
+        }
+    }
+
+
+    public static void addRoom(Room room) {
+        String sql = "INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, room.getRoomNum());
+            pstmt.setInt(2, room.getStreetNum());
+            pstmt.setString(3, room.getStreetName());
+            pstmt.setString(4, room.getPostalCode());
+            pstmt.setDouble(5, room.getPrice());
+            pstmt.setBoolean(6, room.isTv());
+            pstmt.setBoolean(7, room.isAc());
+            pstmt.setBoolean(8, room.isFridge());
+            pstmt.setInt(9, room.getCapacity());
+            pstmt.setBoolean(10, room.isExtendable());
+            pstmt.setString(11, room.getDefects());
+            pstmt.setString(12, room.getViewDescription());
+            pstmt.setBoolean(13, room.isAvailable());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Room added successfully.");
+            } else {
+                System.err.println("Failed to add room.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void deleteRoom(Room room) {
+        String sql = "DELETE FROM Room WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?;";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            // Setting parameters for the PreparedStatement from the Room object
+            pstmt.setInt(1, room.getRoomNum());
+            pstmt.setInt(2, room.getStreetNum());
+            pstmt.setString(3, room.getStreetName());
+            pstmt.setString(4, room.getPostalCode());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Room deleted successfully.");
+            } else {
+                System.err.println("Failed to delete room. Room may not exist.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Retrieves all rooms for a specific hotel instance based on address.
+     * @param streetNum The street number of the hotel.
+     * @param streetName The street name of the hotel.
+     * @param postalCode The postal code of the hotel.
+     * @return A list of Room objects for the specified hotel instance.
+     * @throws Exception If there is an issue accessing the database.
+     */
+    public static List<Room> getAllRoomsInHotel(int streetNum, String streetName, String postalCode) throws Exception {
+        List<Room> rooms = new ArrayList<>();
+        ConnectionDB db = new ConnectionDB();
+
+        String sql = "SELECT * FROM Room WHERE StreetNum = ? AND StreetName = ? AND PostalCode = ? ORDER BY RoomNum;";
+
+        try (Connection con = db.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, streetNum);
+            ps.setString(2, streetName);
+            ps.setString(3, postalCode);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Room room = new Room(
+                        rs.getInt("RoomNum"),
+                        rs.getInt("StreetNum"),
+                        rs.getString("StreetName"),
+                        rs.getString("PostalCode"),
+                        rs.getDouble("Price"),
+                        rs.getBoolean("TV"),
+                        rs.getBoolean("AC"),
+                        rs.getBoolean("Fridge"),
+                        rs.getInt("Capacity"),
+                        rs.getBoolean("IsExtendable"),
+                        rs.getString("Defects"),
+                        rs.getString("ViewDescription"),
+                        rs.getBoolean("Available")
+                );
+                rooms.add(room);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve rooms for the specified hotel instance: " + e.getMessage());
+        }
+        return rooms;
+    }
 
 
 }
