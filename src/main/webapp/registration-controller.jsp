@@ -12,7 +12,7 @@
     String street_number = request.getParameter("street-number");
     String street_name = request.getParameter("street-name");
     String city_name = request.getParameter("city-name");
-
+    boolean returnToBooking = Boolean.parseBoolean(request.getParameter("booking"));
     String address = apt_number + " " + street_number + " " + street_name + ", " + city_name;
 
     Registration r = new Registration();
@@ -23,9 +23,14 @@
     } catch (Exception e){
         customerReturned = null;
     }
+
     if (customerReturned != null){
-        l.setLoggedinStatus();
-        response.sendRedirect("checkout.jsp");
+        if (returnToBooking){
+            response.sendRedirect("rentavailableroom.jsp?username=" + customerReturned.getUsername());
+        } else {
+            l.setLoggedinStatus();
+            response.sendRedirect("checkout.jsp");
+        }
     } else {
         response.sendRedirect("registerPage.jsp?registrationFailed=true");
     }

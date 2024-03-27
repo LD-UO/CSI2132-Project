@@ -323,7 +323,7 @@ body {
     background-color: white;
 }
 
-#employee-landing{
+#employee-landing, #available-rooms-page{
     background-image: url("assets/employee landing background.png");
     background-size: cover;
     background-color: rgb(173, 216, 230);
@@ -415,4 +415,44 @@ th {
         height: 0;
         display: none;
     }
+}
+
+#rentroomform {
+    width: 90%;
+    margin: 0 auto;
+    background-color: rgb(14, 28, 84);
+    color: white;
+    text-align: center;
+}
+
+#dropdown-label, #checkout-label, #username-label {
+    font-size: 18px;
+}
+
+option, select {
+    font-family: "DM Serif Display";
+    font-size: 18px;
+    width: 100px;
+    text-align: center;
+}
+
+#customerusername {
+    font-size: 18px;
+    font-family: "DM Serif Display";
+}
+#checkoutdaterent {
+    font-family: "DM Serif Display";
+    font-size: 18px;
+    width: 200px;
+    text-align: center;
+}
+
+
+#submit-rent {
+    padding: 15px;
+    background-color: white;
+    color: rgb(14, 28, 84);
+    font-family: "DM Serif Display";
+    font-size: 18px;
+    border-radius: 15px;
 }
