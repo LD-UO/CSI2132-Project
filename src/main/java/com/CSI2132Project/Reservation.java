@@ -28,6 +28,10 @@ public class Reservation {
 
     private String postalCode;
 
+    public Reservation(){
+
+    }
+
     // Creating an empty constructor to use the makeReservation method
     public Reservation(String username){
         this.username = username;
@@ -120,7 +124,32 @@ public class Reservation {
         this.postalCode = postalCode;
     }
 
+    public boolean makeReservationWithEmployee(int employeeId, Room r, String startDate, String endDate, String username) {
+        try (Connection con = new ConnectionDB().getConnection()) {
+            String insertSql = "INSERT INTO Reservation (employee_id, RoomNum, username, startDate, endDate, StreetNum, StreetName, PostalCode) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = con.prepareStatement(insertSql)) {
+                pstmt.setInt(1, employeeId);
+                pstmt.setInt(2, r.getRoomNum()); // Assuming Room class has a getRoomNum method
+                pstmt.setString(3, username);
+                pstmt.setDate(4, java.sql.Date.valueOf(startDate));
+                pstmt.setDate(5, java.sql.Date.valueOf(endDate));
+                pstmt.setInt(6, r.getStreetNum());
+                pstmt.setString(7, r.getStreetName());
+                pstmt.setString(8, r.getPostalCode());
 
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new Exception("Failed to create reservation");
+                }
+                return true; // Reservation successful
+            }
+        } catch (Exception e) {
+            System.err.println("Reservation failed: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
     public boolean makeReservation(Room r, String startDate, String endDate, int streetNum, String streetName, String postalCode, String username) throws Exception {
         if (!r.isAvailable()){
             return false; // Room not available
