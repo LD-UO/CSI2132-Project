@@ -343,3 +343,12 @@ CREATE VIEW hotels_by_capacity AS
     SELECT PostalCode,StreetName, StreetNum, SUM(Capacity) AS capacity
     From HotelInstance NATURAL JOIN Room
     GROUP BY PostalCode,StreetName, StreetNum;
+
+CREATE INDEX room_num_index
+    ON ROOM(RoomNum);
+
+CREATE INDEX employee_id_index
+    ON Employee(employee_id);
+
+CREATE INDEX archive_id_index
+    ON Archive(archive_id);
