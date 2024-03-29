@@ -228,8 +228,9 @@ public class Employee {
         }
     }
 
-    public static void deleteEmployee(Employee employee) {
+    public static boolean deleteEmployee(Employee employee) {
         String sql = "DELETE FROM Employee WHERE employee_id = ?;";
+        boolean result = false;
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -240,12 +241,15 @@ public class Employee {
 
             if (rowsAffected > 0) {
                 System.out.println("Employee deleted successfully.");
+                result = true;
             } else {
                 System.err.println("Failed to delete employee. Employee may not exist or could not be found with the given ID.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
     /**
@@ -257,7 +261,7 @@ public class Employee {
      * @return A list of Employee objects representing all employees working at the specified hotel.
      * @throws Exception If an error occurs during database access.
      */
-    public static List<Employee> getAllEmployeesAtHotel(int streetNum, String streetName, String postalCode) throws Exception {
+    public static List<Employee> getAllEmployeesAtHotel(int streetNum, String streetName, String postalCode) {
         List<Employee> employees = new ArrayList<>();
         ConnectionDB db = new ConnectionDB();
 
@@ -286,7 +290,7 @@ public class Employee {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Failed to retrieve employees for the specified hotel instance: " + e.getMessage());
+
         }
         return employees;
     }

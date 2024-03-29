@@ -11,7 +11,7 @@
         <link href="index.css" rel="stylesheet">
     </head>
     <body id="employee-landing">
-        <h1>Logo will go here</h1>
+            <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
         <p id="failure">Something went wrong, please try again!</p>
         <%
             Employee e = Session.currentSessionEmployee;

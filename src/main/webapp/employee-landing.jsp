@@ -40,11 +40,9 @@
             <form id="delete-reservations" action="deleteReservation.jsp" method="POST">
                 <input type="submit" id="view-assigned-reservations-button" value="Delete Reservations">
             </form>
-            <!-- Hotel Instance Manager space -->
-            <form id="manage-employees" action="" method="POST">
+            <form id="manage-employees" action="manage-employees.jsp" method="POST">
                 <input type="submit" id="view-assigned-reservations-button" value="Employee Management">
             </form>
-            <!-- TODO: Add some validation functionality to ensure that not all employees can access all of the sections-->
         </div>
         <script>
             if ( <%= reservationCreated %> ){
