@@ -234,9 +234,12 @@ public class Room {
         return success;
     }
 
-    public static void checkOut(Room room) {
+    public static boolean checkOut(Room room) {
         ConnectionDB db = new ConnectionDB();
         Connection con = null;
+        boolean deleteResult = false;
+        boolean updateResult = false;
+
         try {
             con = db.getConnection();
             // Start transaction
@@ -252,6 +255,7 @@ public class Room {
 
                 int deletedRows = deleteStmt.executeUpdate();
                 System.out.println(deletedRows + " reservation(s) deleted.");
+                deleteResult = true;
             }
 
             // Next, update the room's availability
@@ -265,6 +269,7 @@ public class Room {
                 int rowsAffected = updateStmt.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Room checkout successful.");
+                    updateResult = true;
                 } else {
                     System.out.println("Room checkout not successful.");
                 }
@@ -291,6 +296,8 @@ public class Room {
                 }
             }
         }
+
+        return deleteResult && updateResult;
     }
 
 

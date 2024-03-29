@@ -119,6 +119,44 @@ public class Employee {
         return exists;
     }
 
+    public List<Reservation> viewAllReservations(int employeeID) {
+        List<Reservation> myReservations = new ArrayList<>();
+
+        // Include a join with the Room table to check room availability and compare startDate with the current date
+        String sql = "SELECT Reservation.* FROM Reservation " +
+                "JOIN Room ON Reservation.RoomNum = Room.RoomNum " +
+                "AND Reservation.streetnum = Room.streetnum " +
+                "AND Reservation.streetname = Room.streetname " +
+                "AND Reservation.postalcode = Room.postalcode " +
+                "WHERE Reservation.employee_id = ? " +
+                "AND (Room.Available = FALSE);";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, employeeID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // Assuming Reservation constructor and attributes
+                Reservation reservation = new Reservation(
+                        rs.getInt("reservation_id"),
+                        rs.getInt("RoomNum"),
+                        rs.getString("username"),
+                        rs.getDate("startDate").toString(),
+                        rs.getDate("endDate").toString(),
+                        rs.getInt("StreetNum"),
+                        rs.getString("StreetName"),
+                        rs.getString("PostalCode")
+                );
+                myReservations.add(reservation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return myReservations;
+    }
+
     /**
      * Views reservations for an employee where the reservation's start date hasn't arrived yet or if the room is available.
      * @param employeeID The employee ID to view reservations for.

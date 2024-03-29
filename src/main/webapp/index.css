@@ -341,7 +341,7 @@ body {
     height: 200px;
 }
 
-#view-assigned-reservations, #view-available-rooms, #delete-reservations, #manage-employees, #manage-hotels, #manage-franchise {
+#view-assigned-reservations, #view-available-rooms, #delete-reservations, #manage-employees, #checkout-customer {
     float: left;
     background-color: rgb(14, 28, 84);
     width: 25%;

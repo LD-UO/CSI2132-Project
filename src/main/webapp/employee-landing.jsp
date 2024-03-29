@@ -27,6 +27,9 @@
             <form id="view-available-rooms" action="currentlyavailablerooms.jsp" method="POST">
                 <input type="submit" id="view-assigned-reservations-button" value="View Currently Available Rooms">
             </form>
+            <form id="checkout-customer" action="checkoutCustomer.jsp" method="POST">
+                <input type="submit" id="view-assigned-reservations-button" value="Check out Customer">
+            </form>
             <form id="delete-reservations" action="" method="POST">
                 <input type="submit" id="view-assigned-reservations-button" value="Delete Reservations">
             </form>
