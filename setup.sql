@@ -332,3 +332,14 @@ INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(4, 301, 400, 'Oak St', 'D4D4D4', 'emily_wang', '2024-03-22', '2024-03-27');
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(5, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-03-25', '2024-03-30');
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(8, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-04-25', '2024-04-30');
+
+-- TODO add area attribute
+-- CREATE VIEW rooms_by_area AS
+--     SELECT Area, COUNT (*) AS numberOfRooms,
+--     FROM Room
+--     GROUP BY Area;
+
+CREATE VIEW hotels_by_capacity AS
+    SELECT PostalCode,StreetName, StreetNum, SUM(Capacity) AS capacity
+    From HotelInstance NATURAL JOIN Room
+    GROUP BY PostalCode,StreetName, StreetNum;
