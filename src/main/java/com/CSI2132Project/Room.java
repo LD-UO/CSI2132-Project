@@ -335,9 +335,9 @@ public class Room {
     }
 
 
-    public static void deleteRoom(Room room) {
+    public static boolean deleteRoom(Room room) {
         String sql = "DELETE FROM Room WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ?;";
-
+        boolean result = false;
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
 
@@ -351,12 +351,15 @@ public class Room {
 
             if (rowsAffected > 0) {
                 System.out.println("Room deleted successfully.");
+                result = true;
             } else {
                 System.err.println("Failed to delete room. Room may not exist.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
     /**
@@ -367,7 +370,7 @@ public class Room {
      * @return A list of Room objects for the specified hotel instance.
      * @throws Exception If there is an issue accessing the database.
      */
-    public static List<Room> getAllRoomsInHotel(int streetNum, String streetName, String postalCode) throws Exception {
+    public static List<Room> getAllRoomsInHotel(int streetNum, String streetName, String postalCode) {
         List<Room> rooms = new ArrayList<>();
         ConnectionDB db = new ConnectionDB();
 
@@ -401,7 +404,6 @@ public class Room {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Failed to retrieve rooms for the specified hotel instance: " + e.getMessage());
         }
         return rooms;
     }

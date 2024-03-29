@@ -43,6 +43,9 @@
             <form id="manage-employees" action="manage-employees.jsp" method="POST">
                 <input type="submit" id="view-assigned-reservations-button" value="Employee Management">
             </form>
+            <form id="manage-rooms" action="manage-rooms.jsp" method="POST">
+                <input type="submit" id="view-assigned-reservations-button" value="Room Management">
+            </form>
         </div>
         <script>
             if ( <%= reservationCreated %> ){
@@ -60,6 +63,7 @@
             if ( <%= !isManager %> ){
                 document.getElementById("delete-reservations").style.display = "none";
                 document.getElementById("manage-employees").style.display = "none";
+                document.getElementById("manage-rooms").style.display = "none";
             }
         </script>
     </body>
