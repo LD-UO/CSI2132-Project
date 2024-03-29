@@ -301,9 +301,10 @@ public class Room {
     }
 
 
-    public static void addRoom(Room room) {
+    public static boolean addRoom(Room room) {
         String sql = "INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        boolean result = false;
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -326,12 +327,15 @@ public class Room {
 
             if (rowsAffected > 0) {
                 System.out.println("Room added successfully.");
+                result = true;
             } else {
                 System.err.println("Failed to add room.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
 
