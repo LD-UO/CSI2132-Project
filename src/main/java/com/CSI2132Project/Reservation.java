@@ -216,7 +216,7 @@ public class Reservation {
         List<Reservation> upcomingReservations = new ArrayList<>();
         ConnectionDB db = new ConnectionDB();
 
-        String sql = "SELECT * FROM Reservation WHERE startDate > CURRENT_DATE ORDER BY startDate;"; //order for efficiency
+        String sql = "SELECT * FROM Reservation WHERE startDate >= CURRENT_DATE ORDER BY startDate;"; //order for efficiency
 
         try (Connection con = db.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -240,6 +240,33 @@ public class Reservation {
             throw new Exception("Failed to retrieve upcoming reservations: " + e.getMessage());
         }
         return upcomingReservations;
+    }
+
+    public boolean deleteReservation(int roomnum, int streetnum, String streetName, String postalCode, String startDate){
+        boolean result = false;
+
+        ConnectionDB db = new ConnectionDB();
+        Connection con = null;
+        Room room = new Room(roomnum, streetnum, streetName, postalCode);
+
+        try {
+            con = db.getConnection();
+            String deleteReservationsSql = "DELETE FROM Reservation WHERE RoomNum = ? AND StreetNum = ? AND StreetName = ? AND PostalCode = ? AND startdate = ?";
+            try (PreparedStatement deleteStmt = con.prepareStatement(deleteReservationsSql)) {
+                deleteStmt.setInt(1, room.getRoomNum());
+                deleteStmt.setInt(2, room.getStreetNum());
+                deleteStmt.setString(3, room.getStreetName());
+                deleteStmt.setString(4, room.getPostalCode());
+                deleteStmt.setDate(5, java.sql.Date.valueOf(startDate));
+
+                int deletedRows = deleteStmt.executeUpdate();
+                System.out.println(deletedRows + " reservation(s) deleted.");
+                result = true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

@@ -11,7 +11,7 @@
         <link href="index.css" rel="stylesheet">
     </head>
     <body id="employee-landing">
-        <h1>Logo will go here</h1>
+        <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
         <h1>Here are your active, assigned reservations</h1>
         <p id="success">Successfully checked in the customer!</p>
         <p id="failure">Failed to check in the customer, please try again!</p>

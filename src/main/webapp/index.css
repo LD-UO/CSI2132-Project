@@ -456,3 +456,32 @@ option, select {
     font-size: 18px;
     border-radius: 15px;
 }
+
+#delete-reservation-button{
+    color: red;
+    background-color: rgb(14, 28, 84);
+    border: none;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+#delete-reservation-button:hover{
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+#checkout-button {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;
+    border: none;
+    font-family: "DM Serif Display";
+}
+
+#checkout-button:hover{
+    background-color: lightgray;
+}
+
+#logo-link{
+    color: rgb(14, 28, 84);
+    text-decoration: none;
+}
