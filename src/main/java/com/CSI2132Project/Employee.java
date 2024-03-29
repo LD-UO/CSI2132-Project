@@ -200,9 +200,11 @@ public class Employee {
         return myReservations;
     }
 
-    public static void addEmployee(Employee employee) {
+    public static boolean addEmployee(Employee employee) {
         String sql = "INSERT INTO Employee (employee_id, streetName, streetNum, postalCode, name, phone, position, SIN) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
+        boolean result = false;
 
         try (Connection con = new ConnectionDB().getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -220,12 +222,15 @@ public class Employee {
 
             if (rowsAffected > 0) {
                 System.out.println("Employee added successfully.");
+                result = true;
             } else {
                 System.err.println("Failed to add employee.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
     public static boolean deleteEmployee(Employee employee) {

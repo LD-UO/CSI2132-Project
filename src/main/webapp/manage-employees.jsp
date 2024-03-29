@@ -15,6 +15,12 @@
     %>
     <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
     <p id="failure">Something went wrong, please try again</p>
+    <h1>Here are all the employees at your hotel</h1>
+    <div id="add-employee-div">
+        <form action="add-employee-page.jsp" method="POST">
+            <input type="submit" id="add-employee-button" value="+ Add Employee">
+        </form>
+    </div>
     <div id="reservation-e-view">
     <table id="reservation-table">
     <tr>

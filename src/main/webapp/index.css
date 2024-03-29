@@ -485,3 +485,25 @@ option, select {
     color: rgb(14, 28, 84);
     text-decoration: none;
 }
+
+#add-employee-div{
+    width: 90%;
+    text-align: right;
+    margin: 0 auto;
+}
+
+#add-employee-button{
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgb(46,139,87);
+    font-family: "DM Serif Display";
+    color: white;
+    font-weight: "bold";
+    border: 2px solid rgb(46, 139, 87);
+}
+
+#add-employee-button:hover{
+    border: 2px solid rgb(46, 139, 87);
+    background-color: white;
+    color: rgb(46, 139, 87);
+}
