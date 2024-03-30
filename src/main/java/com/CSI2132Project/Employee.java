@@ -257,6 +257,129 @@ public class Employee {
         return result;
     }
 
+    public static boolean updateEmployee(int employeeID, String name, String phoneNumber, String position){
+        // Need to have cases for each
+        boolean result = false;
+        System.out.println(phoneNumber.length());
+        ConnectionDB db = new ConnectionDB();
+        String sql = "";
+
+        if (!name.isEmpty() && phoneNumber.isEmpty() && position.isEmpty()){
+            sql = "UPDATE employee SET name = ? dWHERE employee_id = ?";
+            try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, name);
+                statement.setInt(2, employeeID);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } else if (!name.isEmpty() && !phoneNumber.isEmpty() && position.isEmpty()){
+            System.out.println(phoneNumber);
+            sql = "UPDATE employee SET name = ?, phone = ?WHERE employee_id = ?";
+            try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, name);
+                statement.setString(2, phoneNumber);
+                statement.setInt(3, employeeID);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } else if (!name.isEmpty() && !phoneNumber.isEmpty() && !position.isEmpty()){
+            sql = "UPDATE employee SET name = ?, phone = ?, position = ? WHERE employee_id = ?";
+            try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, name);
+                statement.setString(2, phoneNumber);
+                statement.setString(3, position);
+                statement.setInt(4, employeeID);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } else if (name.isEmpty() && !phoneNumber.isEmpty() && position.isEmpty()){
+            sql = "UPDATE employee SET phone = ? WHERE employee_id = ?";
+            try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, phoneNumber);
+                statement.setInt(2, employeeID);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } else if (name.isEmpty() && !phoneNumber.isEmpty() && !position.isEmpty()){
+            sql = "UPDATE employee SET phone = ?, position = ? WHERE employee_id= ?";
+            try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, phoneNumber);
+                statement.setString(2, position);
+                statement.setInt(2, employeeID);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } else if (name.isEmpty() && phoneNumber.isEmpty() && !position.isEmpty()){
+            sql = "UPDATE employee SET position = ? WHERE employee_id= ?";
+            try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, position);
+                statement.setInt(2, employeeID);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+        } else if (!name.isEmpty() && phoneNumber.isEmpty() && !position.isEmpty()){
+            sql = "UPDATE employee SET name = ?, position = ? WHERE employee_id = ?";
+            try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+                statement.setString(1, name);
+                statement.setString(2, position);
+                statement.setInt(3, employeeID);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
     /**
      * Retrieves all employees working at a specific hotel instance identified by its address.
      *
@@ -264,7 +387,7 @@ public class Employee {
      * @param streetName The street name of the hotel.
      * @param postalCode The postal code of the hotel.
      * @return A list of Employee objects representing all employees working at the specified hotel.
-     * @throws Exception If an error occurs during database access.
+     *
      */
     public static List<Employee> getAllEmployeesAtHotel(int streetNum, String streetName, String postalCode) {
         List<Employee> employees = new ArrayList<>();

@@ -111,7 +111,7 @@ public class Customer {
             }
         } else {
             // There's been a change to both
-            String sql = "UPDATE customers SET address = ? AND SET name = ? WHERE username = ?";
+            String sql = "UPDATE customers SET address = ?, name = ? WHERE username = ?";
 
             try (Connection con = new ConnectionDB().getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
                 pstmt.setString(1, address);

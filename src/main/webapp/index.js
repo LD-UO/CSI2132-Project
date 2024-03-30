@@ -2,6 +2,11 @@ var nameLength = 0;
 var addressLength = 0;
 var bothEmpty = true;
 
+var eNameLength = 0;
+var phoneLength = 0;
+var positionLength = 0;
+var threeEmpty = true;
+
 function loadDates(){
     // Setting the min date for the check in date to be the current day because we do not want to allow customers to set
     // starting date to be in the past
@@ -47,5 +52,43 @@ function nameChange(){
         }
     });
 
+}
+
+function employeeChange(){
+    document.getElementById("name").addEventListener("keyup", function(){
+            nameLength = document.getElementById("name").value.length;
+            threeEmpty = (nameLength == 0) && (phoneLength == 0) && (positionLength == 0);
+            console.log(threeEmpty);
+
+            if (threeEmpty){
+                document.getElementById("submit").disabled = true;
+            } else {
+                document.getElementById("submit").disabled = false;
+            }
+        });
+
+        document.getElementById("phone").addEventListener("keyup", function(){
+            phoneLength = document.getElementById("phone").value.length;
+            threeEmpty = (nameLength == 0) && (phoneLength == 0) && (positionLength == 0);
+            console.log(threeEmpty);
+
+            if (threeEmpty){
+                document.getElementById("submit").disabled = true;
+            } else {
+                document.getElementById("submit").disabled = false;
+            }
+        });
+
+        document.getElementById("position").addEventListener("keyup", function(){
+            positionLength = document.getElementById("position").value.length;
+            threeEmpty = (nameLength == 0) && (phoneLength == 0) && (positionLength == 0);
+            console.log(threeEmpty);
+
+            if (threeEmpty){
+                document.getElementById("submit").disabled = true;
+            } else {
+                document.getElementById("submit").disabled = false;
+            }
+        });
 
 }

@@ -55,7 +55,6 @@ body {
 }
 
 #welcome-banner{
-    /* TODO: Make the background more transparent */
     background-image: url("assets/resort.png"), linear-gradient(rgba(14, 28, 84, 0), rgba(0, 0, 0, 1));
     height: 600px;
     background-size: 100%;
@@ -511,4 +510,8 @@ option, select {
     border: 2px solid rgb(46, 139, 87);
     background-color: white;
     color: rgb(46, 139, 87);
+}
+
+#update-icon{
+    width: 30px;
 }

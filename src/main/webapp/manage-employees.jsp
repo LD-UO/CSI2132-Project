@@ -63,6 +63,12 @@
                         <input type="submit" id="delete-reservation-button" value="X">
                     </form>
                 </td>
+                <td>
+                    <form action="update-employee-page.jsp" method="POST">
+                        <input type="hidden" name="employeeID" value="<%= listEmployee.getEmployeeId() %>">
+                        <input type="image" name="submit" id="update-icon" src="assets/pencil icon.png">
+                    </form>
+                </td>
             </tr>
         <%
         }
