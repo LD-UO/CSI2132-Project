@@ -14,4 +14,6 @@ public class LoginCheck {
     public static String getUserName(){return username;}
 
     public static void setUserName(String entereduser) {username = entereduser;}
+
+    public static void deleteAccount(){loggedin = false;}
 }

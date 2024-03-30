@@ -155,7 +155,8 @@ public class Customer {
         }
         return null; //If no customer could be found
     }
-    public static void deleteCustomer(Customer customer) {
+    public static boolean deleteCustomer(Customer customer) {
+        boolean result = false;
         ConnectionDB db = new ConnectionDB();
         try (Connection con = db.getConnection()) {
             String sql = "DELETE FROM Customers WHERE username = ?";
@@ -168,11 +169,14 @@ public class Customer {
                     throw new Exception("Deleting customer failed, no rows affected.");
                 } else {
                     System.out.println("Customer deleted successfully.");
+                    result = true;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
     /**

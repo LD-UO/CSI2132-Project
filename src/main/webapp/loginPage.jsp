@@ -35,6 +35,10 @@
             } else {
                 document.getElementById("loginFailedMessage").innerHTML = "";
             }
+
+            if ( <%= accountInfo %>){
+                document.getElementById("register_link").href = "registerPage.jsp?accountInfo=true"
+            }
         </script>
     </body>
 </html>

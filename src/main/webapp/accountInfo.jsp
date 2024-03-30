@@ -42,6 +42,10 @@
             </form>
 
             <form action="delete-account.jsp" method="POST">
+                <input type="hidden" name="username" value="<%= c.getUsername() %>">
+                <input type="hidden" name="name" value="<%= c.getName() %>">
+                <input type="hidden" name="SIN" value="<%= c.getSIN() %>">
+                <input type="hidden" name="address" value="<%= c.getAddress() %>">
                 <input type="submit" id="delete" value="Delete Account">
             </form>
             <script src="index.js"></script>

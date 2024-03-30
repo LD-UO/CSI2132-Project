@@ -21,6 +21,10 @@
             response.sendRedirect("accountInfo.jsp");
         }
     } else {
-        response.sendRedirect("loginPage.jsp?loginFailed=true");
+        if (!accountInfo){
+            response.sendRedirect("loginPage.jsp?loginFailed=true");
+        } else {
+            response.sendRedirect("loginPage.jsp?loginFailed=true&accountInfo=true");
+        }
     }
 %>

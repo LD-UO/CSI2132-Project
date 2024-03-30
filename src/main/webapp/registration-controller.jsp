@@ -14,10 +14,10 @@
     String city_name = request.getParameter("city-name");
     boolean returnToBooking = Boolean.parseBoolean(request.getParameter("booking"));
     String address = apt_number + " " + street_number + " " + street_name + ", " + city_name;
-
+    boolean accountInfo = Boolean.parseBoolean(request.getParameter("accountInfo"));
     Registration r = new Registration();
     Customer customerReturned;
-
+    System.out.println(accountInfo);
     try {
         customerReturned = r.userRegistration(username, name, sin, address);
     } catch (Exception e){
@@ -27,6 +27,9 @@
     if (customerReturned != null){
         if (returnToBooking){
             response.sendRedirect("rentavailableroom.jsp?username=" + customerReturned.getUsername());
+        } else if (accountInfo){
+            l.setLoggedinStatus();
+            response.sendRedirect("accountInfo.jsp?username=" + customerReturned.getUsername());
         } else {
             l.setLoggedinStatus();
             response.sendRedirect("checkout.jsp");

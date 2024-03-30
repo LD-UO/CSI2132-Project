@@ -10,6 +10,7 @@
         <%
             boolean registrationFailed = Boolean.parseBoolean(request.getParameter("registrationFailed"));
             boolean returnToBooking = Boolean.parseBoolean(request.getParameter("booking"));
+            boolean accountInfo = Boolean.parseBoolean(request.getParameter("accountInfo"));
         %>
         <div id="registration-section">
         <div id="registration-modal">
@@ -49,6 +50,7 @@
             <br>
             <input type="submit" id="submit-login" value="Register">
             <input type="hidden" id="booking" name="booking" value="<%= returnToBooking %>">
+            <input type="hidden" id="accountInfo" name="accountInfo" value="<%= accountInfo %>">
             <p id="registrationFailedMessage"></p>
         </form>
         </div>
