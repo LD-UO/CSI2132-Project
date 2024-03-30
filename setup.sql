@@ -87,6 +87,7 @@ CREATE TABLE Room
     Defects         VARCHAR(100)   NOT NULL CHECK (LENGTH(Defects) BETWEEN 4 AND 100),
     ViewDescription VARCHAR(100)   NOT NULL CHECK (LENGTH(ViewDescription) BETWEEN 5 AND 100),
     Available       BOOLEAN        NOT NULL,
+    Area            INT            CHECK ( Area > 0 ),
     PRIMARY KEY (RoomNum, StreetNum, StreetName, PostalCode)
 );
 
@@ -230,39 +231,39 @@ INSERT INTO Employee (employee_id, StreetNum, StreetName, PostalCode, Name, Phon
                                                                                                       (35, 500, 'Cedar Rd', 'E5E5E5', 'Hannah Brown', '5678901234', 'Maintenance', '012345680'),
                                                                                                       (36, 101, 'Pine St', 'F6F6F6', 'Natalie Johnson', '6789012345', 'Receptionist', '123456784');
 
-INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) VALUES
+INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available, Area) VALUES
 -- Marriott
-(1, 100, 'Main St', 'A1A1A1', 150.00, true, true, false, 2, true, 'None', 'City View', true),
-(2, 100, 'Main St', 'A1A1A1', 150.00, true, false, true, 2, true, 'Minor scratches on the wall', 'Ocean View', true),
-(3, 100, 'Main St', 'A1A1A1', 180.00, true, true, true, 4, true, 'None', 'Mountain View', true),
-(4, 100, 'Main St', 'A1A1A1', 180.00, false, true, true, 4, true, 'None', 'Garden View', true),
-(5, 100, 'Main St', 'A1A1A1', 200.00, true, true, true, 2, true, 'None', 'Pool View', true),
+(1, 100, 'Main St', 'A1A1A1', 150.00, true, true, false, 2, true, 'None', 'City View', true, 100),
+(2, 100, 'Main St', 'A1A1A1', 150.00, true, false, true, 2, true, 'Minor scratches on the wall', 'Ocean View', true, 100),
+(3, 100, 'Main St', 'A1A1A1', 180.00, true, true, true, 4, true, 'None', 'Mountain View', true, 100),
+(4, 100, 'Main St', 'A1A1A1', 180.00, false, true, true, 4, true, 'None', 'Garden View', true, 100),
+(5, 100, 'Main St', 'A1A1A1', 200.00, true, true, true, 2, true, 'None', 'Pool View', true, 100),
 
 -- Hilton
-(101, 200, 'Elm St', 'B2B2B2', 130.00, true, false, true, 2, true, 'None', 'City View', true),
-(102, 200, 'Elm St', 'B2B2B2', 130.00, true, true, false, 2, true, 'Water leakage from the ceiling', 'Ocean View', true),
-(103, 200, 'Elm St', 'B2B2B2', 150.00, false, true, true, 4, true, 'None', 'Mountain View', true),
-(104, 200, 'Elm St', 'B2B2B2', 150.00, true, true, true, 4, true, 'None', 'Garden View', true),
-(105, 200, 'Elm St', 'B2B2B2', 180.00, true, false, true, 2, true, 'None', 'Pool View', true),
+(101, 200, 'Elm St', 'B2B2B2', 130.00, true, false, true, 2, true, 'None', 'City View', true, 100),
+(102, 200, 'Elm St', 'B2B2B2', 130.00, true, true, false, 2, true, 'Water leakage from the ceiling', 'Ocean View', true, 100),
+(103, 200, 'Elm St', 'B2B2B2', 150.00, false, true, true, 4, true, 'None', 'Mountain View', true, 100),
+(104, 200, 'Elm St', 'B2B2B2', 150.00, true, true, true, 4, true, 'None', 'Garden View', true, 100),
+(105, 200, 'Elm St', 'B2B2B2', 180.00, true, false, true, 2, true, 'None', 'Pool View', true, 100),
 -- Hyatt
-(201, 300, 'Maple Ave', 'C3C3C3', 170.00, true, false, true, 2, true, 'None', 'City View', true),
-(202, 300, 'Maple Ave', 'C3C3C3', 170.00, false, true, true, 2, true, 'None', 'Ocean View', true),
-(203, 300, 'Maple Ave', 'C3C3C3', 190.00, true, true, false, 4, true, 'None', 'Mountain View', true),
-(204, 300, 'Maple Ave', 'C3C3C3', 190.00, true, true, true, 4, true, 'None', 'Garden View', true),
-(205, 300, 'Maple Ave', 'C3C3C3', 220.00, true, true, true, 2, true, 'None', 'Pool View', true),
+(201, 300, 'Maple Ave', 'C3C3C3', 170.00, true, false, true, 2, true, 'None', 'City View', true, 200),
+(202, 300, 'Maple Ave', 'C3C3C3', 170.00, false, true, true, 2, true, 'None', 'Ocean View', true, 200),
+(203, 300, 'Maple Ave', 'C3C3C3', 190.00, true, true, false, 4, true, 'None', 'Mountain View', true, 200),
+(204, 300, 'Maple Ave', 'C3C3C3', 190.00, true, true, true, 4, true, 'None', 'Garden View', true, 200),
+(205, 300, 'Maple Ave', 'C3C3C3', 220.00, true, true, true, 2, true, 'None', 'Pool View', true, 200),
 -- Holiday Inn
-(301, 400, 'Oak St', 'D4D4D4', 120.00, true, true, false, 2, true, 'None', 'City View', true),
-(302, 400, 'Oak St', 'D4D4D4', 120.00, false, true, true, 2, true, 'None', 'Ocean View', true),
-(303, 400, 'Oak St', 'D4D4D4', 140.00, true, false, true, 4, true, 'None', 'Mountain View', true),
-(304, 400, 'Oak St', 'D4D4D4', 140.00, true, true, true, 4, true, 'None', 'Garden View', true),
-(305, 400, 'Oak St', 'D4D4D4', 160.00, true, true, false, 2, true, 'None', 'Pool View', true),
+(301, 400, 'Oak St', 'D4D4D4', 120.00, true, true, false, 2, true, 'None', 'City View', true, 200),
+(302, 400, 'Oak St', 'D4D4D4', 120.00, false, true, true, 2, true, 'None', 'Ocean View', true, 200),
+(303, 400, 'Oak St', 'D4D4D4', 140.00, true, false, true, 4, true, 'None', 'Mountain View', true, 200),
+(304, 400, 'Oak St', 'D4D4D4', 140.00, true, true, true, 4, true, 'None', 'Garden View', true, 200),
+(305, 400, 'Oak St', 'D4D4D4', 160.00, true, true, false, 2, true, 'None', 'Pool View', true, 200),
 
 -- Sheraton
-(401, 500, 'Cedar Rd', 'E5E5E5', 140.00, true, false, true, 2, true, 'None', 'City View', true),
-(402, 500, 'Cedar Rd', 'E5E5E5', 140.00, false, true, true, 2, true, 'None', 'Ocean View', true),
-(403, 500, 'Cedar Rd', 'E5E5E5', 160.00, true, true, false, 4, true, 'None', 'Mountain View', true),
-(404, 500, 'Cedar Rd', 'E5E5E5', 160.00, true, true, true, 4, true, 'None', 'Garden View', true),
-(405, 500, 'Cedar Rd', 'E5E5E5', 180.00, true, false, true, 2, true, 'None', 'Pool View', true);
+(401, 500, 'Cedar Rd', 'E5E5E5', 140.00, true, false, true, 2, true, 'None', 'City View', true, 150),
+(402, 500, 'Cedar Rd', 'E5E5E5', 140.00, false, true, true, 2, true, 'None', 'Ocean View', true, 150),
+(403, 500, 'Cedar Rd', 'E5E5E5', 160.00, true, true, false, 4, true, 'None', 'Mountain View', true, 150),
+(404, 500, 'Cedar Rd', 'E5E5E5', 160.00, true, true, true, 4, true, 'None', 'Garden View', true, 150),
+(405, 500, 'Cedar Rd', 'E5E5E5', 180.00, true, false, true, 2, true, 'None', 'Pool View', true, 150);
 
 INSERT INTO Customers (username, name, SIN, address) VALUES
                                                          ('john_doe', 'John Doe', '123456789', '123 Main St, City'),
@@ -333,11 +334,12 @@ INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(5, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-03-25', '2024-03-30');
 INSERT INTO Reservation (employee_id, RoomNum, StreetNum, StreetName, PostalCode, username, startDate, endDate) VALUES(8, 401, 500, 'Cedar Rd', 'E5E5E5','michael_brown', '2024-04-25', '2024-04-30');
 
--- TODO add area attribute
--- CREATE VIEW rooms_by_area AS
---     SELECT Area, COUNT (*) AS numberOfRooms,
---     FROM Room
---     GROUP BY Area;
+CREATE VIEW rooms_by_area AS
+    SELECT Area, COUNT (*) AS number_of_avalable_rooms
+    FROM Room
+    WHERE Available=true
+    GROUP BY Area;
+
 
 CREATE VIEW hotels_by_capacity AS
     SELECT PostalCode,StreetName, StreetNum, SUM(Capacity) AS capacity
