@@ -4,6 +4,7 @@
 
 <%
     String username = request.getParameter("username");
+    boolean accountInfo = Boolean.parseBoolean(request.getParameter("accountInfoRedirect"));
     Login login = new Login();
     boolean result = false;
     try {
@@ -14,7 +15,11 @@
     }
 
     if (result){
-        response.sendRedirect("checkout.jsp");
+        if (!accountInfo){
+            response.sendRedirect("checkout.jsp");
+        } else {
+            response.sendRedirect("accountInfo.jsp");
+        }
     } else {
         response.sendRedirect("loginPage.jsp?loginFailed=true");
     }

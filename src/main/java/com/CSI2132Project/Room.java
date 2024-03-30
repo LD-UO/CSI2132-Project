@@ -202,10 +202,6 @@ public class Room {
     }
 
     public static boolean checkIn(Room room) {
-        System.out.println(room.getRoomNum());
-        System.out.println(room.getStreetNum());
-        System.out.println(room.getStreetName());
-        System.out.println(room.getPostalCode());
         // SQL query to update the 'Available' column for a specific room
         String sql = "UPDATE room SET available = FALSE WHERE roomnum = ? AND streetnum = ? AND streetname = ? AND postalcode = ?";
         boolean success = false;

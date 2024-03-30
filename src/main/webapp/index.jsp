@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page import="com.CSI2132Project.LoginCheck" %>
+
+
 <html>
 <head>
     <!-- Bootstrap CSS -->
@@ -7,12 +11,19 @@
     <title>Welcome!</title>
 </head>
 <body onload="loadDates()">
+    <%
+        boolean loggedIn = LoginCheck.getLoggedInStatus();
+    %>
     <div id="banner">
         <div id="logo-div">
             <h1>Logo will go here</h1>
         </div>
         <div id="employee-login-div">
-            <form action="employee-login.jsp" action="POST">
+            <form id="login-form-button-customer" action="loginPage.jsp?accountInfo=true" method="POST">
+                <input type="hidden" id="hiddenUsername" name="username" value="">
+                <input id="employee-login-button" type="submit" value="My Info">
+            </form>
+            <form id="login-form-button" action="employee-login.jsp" action="POST">
                 <input id="employee-login-button" type="submit" value="Employee Login">
             </form>
         </div>
@@ -60,5 +71,13 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="index.js"></script>
+    <script>
+        if (<%= loggedIn %>){
+            document.getElementById("login-form-button-customer").action = "accountInfo.jsp";
+            document.getElementById("hiddenUsername").value = "<%= LoginCheck.getUserName() %>";
+        } else {
+
+        }
+    </script>
 </body>
 </html>

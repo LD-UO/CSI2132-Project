@@ -38,17 +38,22 @@ body {
     padding-top: 10px;
 }
 
-#employee-login-button {
+#employee-login-button, #employee-login-button-customer {
     background-color: rgb(14, 28, 84);
     color: white;
     border-radius: 10px;
     border: 2px solid rgb(14, 28, 84);
 }
 
+#login-form-button, #login-form-button-customer{
+    float: right;
+    margin-right: 15px;
+}
 #employee-login-button:hover{
     background-color: white;
     color: rgb(14, 28, 84);
 }
+
 #welcome-banner{
     /* TODO: Make the background more transparent */
     background-image: url("assets/resort.png"), linear-gradient(rgba(14, 28, 84, 0), rgba(0, 0, 0, 1));

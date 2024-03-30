@@ -72,7 +72,90 @@ public class Customer {
         }
     }
 
-    public static void deleteCustomer(Customer customer) throws Exception {
+    public static boolean updateCustomer(String username, String name, String address){
+        boolean result = false;
+
+        // If there's only been a change to the address
+        if (name.length() == 0){
+            String sql = "UPDATE customers SET address = ? WHERE username = ?";
+
+            try (Connection con = new ConnectionDB().getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setString(1, address);
+                pstmt.setString(2, username);
+
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } else if(address.length() == 0) {
+            // If there's only been a change to the name
+            String sql = "UPDATE customers SET name = ? WHERE username = ?";
+
+            try (Connection con = new ConnectionDB().getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setString(1, name);
+                pstmt.setString(2, username);
+
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        } else {
+            // There's been a change to both
+            String sql = "UPDATE customers SET address = ? AND SET name = ? WHERE username = ?";
+
+            try (Connection con = new ConnectionDB().getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setString(1, address);
+                pstmt.setString(2, name);
+                pstmt.setString(3, username);
+
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected > 0){
+                    result = true;
+                } else {
+                    System.err.println("Something went wrong!");
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    public static Customer getCustomer(String username) {
+        ConnectionDB db = new ConnectionDB();
+        try (Connection con = db.getConnection()) {
+            String sql = "SELECT * FROM Customers WHERE username = ?";
+
+            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setString(1, username);
+
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    String customerUsername = rs.getString("username");
+                    String name = rs.getString("name");
+                    String SIN = rs.getString("sin");
+                    String address = rs.getString("address");
+
+                    return new Customer(customerUsername, name, SIN, address);
+                }
+
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null; //If no customer could be found
+    }
+    public static void deleteCustomer(Customer customer) {
         ConnectionDB db = new ConnectionDB();
         try (Connection con = db.getConnection()) {
             String sql = "DELETE FROM Customers WHERE username = ?";
@@ -88,7 +171,7 @@ public class Customer {
                 }
             }
         } catch (Exception e) {
-            throw new Exception("Error deleting customer: " + e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 

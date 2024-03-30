@@ -11,6 +11,7 @@
     <body id="test">
         <%
             boolean loginFailed = Boolean.parseBoolean(request.getParameter("loginFailed"));
+            boolean accountInfo = Boolean.parseBoolean(request.getParameter("accountInfo"));
         %>
         <h1>Logo</h1>
         <div id="login-section">
@@ -19,7 +20,7 @@
                 <form action="login-controller.jsp" method="POST">
                     <label for="username">Username: </label>
                     <input type="text" id="username" name="username" required>
-
+                    <input type="hidden" name="accountInfoRedirect" value="<%= accountInfo %>">
                     <br>
                     <br>
                     <p id="loginFailedMessage"></p>
