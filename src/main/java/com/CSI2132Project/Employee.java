@@ -260,7 +260,6 @@ public class Employee {
     public static boolean updateEmployee(int employeeID, String name, String phoneNumber, String position){
         // Need to have cases for each
         boolean result = false;
-        System.out.println(phoneNumber.length());
         ConnectionDB db = new ConnectionDB();
         String sql = "";
 
@@ -280,7 +279,6 @@ public class Employee {
                 e.printStackTrace();
             }
         } else if (!name.isEmpty() && !phoneNumber.isEmpty() && position.isEmpty()){
-            System.out.println(phoneNumber);
             sql = "UPDATE employee SET name = ?, phone = ?WHERE employee_id = ?";
             try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
                 statement.setString(1, name);

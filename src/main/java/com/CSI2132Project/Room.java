@@ -362,6 +362,36 @@ public class Room {
         return result;
     }
 
+    public static boolean updateRoom(int roomNum, int streetNum, String streetName, String postalCode, double price, boolean tv, boolean ac, boolean fridge, int capacity, boolean isExtendable, String defects, String viewDescription){
+        boolean result = false;
+        ConnectionDB db = new ConnectionDB();
+
+        String sql = "UPDATE room SET price = ?, tv = ?, ac = ?, fridge = ?, capacity = ?, isextendable = ?, defects = ?, viewdescription = ? WHERE roomnum = ? AND streetnum = ? AND streetname = ? AND postalcode = ?";
+        try (Connection con = db.getConnection(); PreparedStatement statement = con.prepareStatement(sql)){
+            statement.setDouble(1, price);
+            statement.setBoolean(2, tv);
+            statement.setBoolean(3, ac);
+            statement.setBoolean(4, fridge);
+            statement.setInt(5, capacity);
+            statement.setBoolean(6, isExtendable);
+            statement.setString(7, defects);
+            statement.setString(8, viewDescription);
+            statement.setInt(9, roomNum);
+            statement.setInt(10, streetNum);
+            statement.setString(11, streetName);
+            statement.setString(12, postalCode);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0){
+                result = true;
+            } else {
+                System.err.println("Something went wrong");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
     /**
      * Retrieves all rooms for a specific hotel instance based on address.
      * @param streetNum The street number of the hotel.

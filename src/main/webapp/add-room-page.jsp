@@ -22,7 +22,7 @@
             <label for="notv">No</label><br>
 
             <p>Does the room have an AC?</p>
-            <input type="radio" id="yestac" name="ac" value="true" required>
+            <input type="radio" id="yesac" name="ac" value="true" required>
             <label for="yesac">Yes</label><br>
             <input type="radio" id="noac" name="ac" value="false">
             <label for="noac">No</label><br>

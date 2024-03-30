@@ -15,7 +15,7 @@
     <%
          boolean failed = Boolean.parseBoolean(request.getParameter("failure"));
     %>
-    <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
+    `<h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>`
     <p id="failure">Something went wrong, please try again</p>
     <h1>Here are all the rooms at your hotel</h1>
     <div id="add-employee-div">
@@ -55,6 +55,21 @@
                         <form action="delete-room-controller.jsp" method="POST">
                             <input type="hidden" name="roomNum" value="<%= d.getRoomNum() %>">
                             <input type="submit" id="delete-reservation-button" value="X">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="update-room-page.jsp" method="POST">
+                            <input type="hidden" name="roomNum" value="<%= d.getRoomNum() %>">
+                            <input type="hidden" name="price" value="<%= d.getPrice() %>">
+                            <input type="hidden" name="tv" value="<%= d.isTv() %>">
+                            <input type="hidden" name="ac" value="<%= d.isAc() %>">
+                            <input type="hidden" name="fridge" value="<%= d.isFridge() %>">
+                            <input type="hidden" name="capacity" value="<%= d.getCapacity() %>">
+                            <input type="hidden" name="extendable" value="<%= d.isExtendable() %>">
+                            <input type="hidden" name="defects" value="<%= d.getDefects() %>">
+                            <input type="hidden" name="view" value="<%= d.getViewDescription() %>">
+
+                            <input type="image" id="update-icon" name="submit" src="assets/pencil icon.png">
                         </form>
                     </td>
                 </tr>

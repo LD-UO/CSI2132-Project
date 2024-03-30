@@ -7,6 +7,13 @@ var phoneLength = 0;
 var positionLength = 0;
 var threeEmpty = true;
 
+var priceLength = document.getElementById("price").length;
+var capacityLength = document.getElementById("capacity").length;
+var defectsLength = document.getElementById("defects").length;
+var viewLength = document.getElementById("view").length;
+
+var allEmpty = false;
+
 function loadDates(){
     // Setting the min date for the check in date to be the current day because we do not want to allow customers to set
     // starting date to be in the past
@@ -91,4 +98,50 @@ function employeeChange(){
             }
         });
 
+}
+
+function allEmptyFieldCheck(){
+    document.getElementById("price").addEventListener("keyup", function(){
+        priceLength = document.getElementById("price").value.length;
+        allEmpty = (priceLength == 0) && (capacityLength == 0) && (defectsLength == 0) && (viewLength == 0);
+
+        if (allEmpty) {
+            document.getElementById("submit").disabled = true;
+        } else {
+            document.getElementById("submit").disabled = false;
+        }
+    });
+
+    document.getElementById("capacity").addEventListener("keyup", function(){
+        capacityLength = document.getElementById("capacity").value.length;
+        allEmpty = (priceLength == 0) && (capacityLength == 0) && (defectsLength == 0) && (viewLength == 0);
+
+        if (allEmpty) {
+            document.getElementById("submit").disabled = true;
+        } else {
+            document.getElementById("submit").disabled = false;
+        }
+    });
+
+    document.getElementById("defects").addEventListener("keyup", function(){
+        defectsLength = document.getElementById("defects").value.length;
+        allEmpty = (priceLength == 0) && (capacityLength == 0) && (defectsLength == 0) && (viewLength == 0);
+
+        if (allEmpty) {
+            document.getElementById("submit").disabled = true;
+        } else {
+            document.getElementById("submit").disabled = false;
+        }
+    });
+
+    document.getElementById("view").addEventListener("keyup", function(){
+        viewLength = document.getElementById("view").value.length;
+        allEmpty = (priceLength == 0) && (capacityLength == 0) && (defectsLength == 0) && (viewLength == 0);
+
+        if (allEmpty) {
+            document.getElementById("submit").disabled = true;
+        } else {
+            document.getElementById("submit").disabled = false;
+        }
+    });
 }
