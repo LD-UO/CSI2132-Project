@@ -44,7 +44,7 @@ public class Customer {
     public void setName(String name){ this.name = name; }
     public void setAddress(String address){ this.address = address; }
 
-    
+
     /**
      * Inserts a new customer into the database.
      * @param customer The customer to be added to the database.
