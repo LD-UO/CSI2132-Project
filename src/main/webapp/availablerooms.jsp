@@ -53,9 +53,6 @@
                   <img src="assets/hotel.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
 
-                  <!-- TODO: Could set the card header to be the hotel chain that offers the room -->
-                  <!-- TODO: If no rooms could be found within the given date range, we should display a message status! -->
-
                     <h5 class="card-title"><%= r.getStreetNum() %> <%= r.getStreetName() %> - <%= r.getRoomNum() %></h5>
                     <p class="card-text"><%= r.getPostalCode() %></p>
                     <p class="card-text"><img src="assets/people icon.png"> - <%= r.getCapacity() %> people(s)</p>

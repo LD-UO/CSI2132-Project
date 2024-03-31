@@ -12,17 +12,19 @@
     </head>
     <body id="employee-landing">
         <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
+        <%
+            Employee e = Session.currentSessionEmployee;
+            List<Reservation> results = e.viewMyReservations(e.getEmployeeId());
+            boolean success = Boolean.parseBoolean(request.getParameter("success"));
+            boolean failure = Boolean.parseBoolean(request.getParameter("failure"));
+            boolean isEmpty = results.isEmpty();
+        %>
         <h1>Here are your active, assigned reservations</h1>
         <p id="success">Successfully checked in the customer!</p>
         <p id="failure">Failed to check in the customer, please try again!</p>
+        <p id="no-reservations"></p>
         <div id="list-of-assigned-reservations">
             <%
-                Employee e = Session.currentSessionEmployee;
-                List<Reservation> results = e.viewMyReservations(e.getEmployeeId());
-                boolean success = Boolean.parseBoolean(request.getParameter("success"));
-                boolean failure = Boolean.parseBoolean(request.getParameter("failure"));
-                // Need to have some functionality for if the reservations list is empty TODO:
-
                 for (Reservation r: results){ %>
                     <div id="reservation-e-view">
                         <table id="reservation-table">
@@ -73,6 +75,10 @@
                 document.getElementById("failure").innerHTML = "Failed to check in the customer, please try again!";
             } else {
                 document.getElementById("failure").style.display = "none";
+            }
+
+            if ( <%= isEmpty %> ){
+                document.getElementById("no-reservations").innerHTML = "You currently have no assigned reservations!";
             }
         </script>
         <script src="index.js"></script>

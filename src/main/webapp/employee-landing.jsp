@@ -18,7 +18,6 @@
         boolean isManager = position.equals("Manager");
 
         %>
-        <!-- TODO: GET THE LOGOUT BUTTON WORKING! -->
         <h1>Logo will go here</h1>
         <h1><a id="logo-link" href="index.jsp">Home</a></h1>
         <h1 id="employee-landing-welcome">Welcome, <%= Session.currentSessionEmployee.getName() %></h1>

@@ -44,8 +44,7 @@ public class Customer {
     public void setName(String name){ this.name = name; }
     public void setAddress(String address){ this.address = address; }
 
-    // TODO: Implement a toString() method? Is there any need for displaying the customer information, I don't think so
-
+    
     /**
      * Inserts a new customer into the database.
      * @param customer The customer to be added to the database.
