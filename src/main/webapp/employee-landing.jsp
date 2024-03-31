@@ -8,6 +8,7 @@
     <head>
         <title>Welcome!</title>
         <link href="index.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="assets/logo.png">
     </head>
     <body id="employee-landing">
         <%
@@ -18,8 +19,20 @@
         boolean isManager = position.equals("Manager");
 
         %>
-        <h1>Logo will go here</h1>
-        <h1><a id="logo-link" href="index.jsp">Home</a></h1>
+        <div id="employee-banner">
+            <div id="employee-logo">
+                <h1>Logo will go here</h1>
+            </div>
+            <div id="employee-logout">
+                <h1><a id="logo-link" href="index.jsp">Home</a></h1>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
         <h1 id="employee-landing-welcome">Welcome, <%= Session.currentSessionEmployee.getName() %></h1>
 
         <h2 id="employee-landing-slogan">What would you like to do today?</h2>

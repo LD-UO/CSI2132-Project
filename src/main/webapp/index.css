@@ -526,3 +526,17 @@ option, select {
 #update-icon{
     width: 30px;
 }
+
+#employee-banner {
+    width: 100%;
+}
+
+#employee-logo, #employee-logout{
+    width: 45%;
+    float: left;
+    margin-left: 25px;
+}
+
+#employee-logout {
+    text-align: right;
+}

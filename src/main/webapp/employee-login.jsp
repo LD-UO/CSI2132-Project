@@ -4,6 +4,7 @@
     <head>
         <title>Employee Login</title>
         <link rel="stylesheet" href="index.css">
+        <link rel="icon" type="image/x-icon" href="assets/logo.png">
     </head>
     <body id="employee-login-page">
         <%

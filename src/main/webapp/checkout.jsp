@@ -8,6 +8,7 @@
 <head>
     <title>Checkout</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
 </head>
 <body id="checkout-page">
     <%

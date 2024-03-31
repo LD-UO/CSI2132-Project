@@ -8,7 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
-    <title>Welcome!</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
+    <title>Welcome to HotelExpress!</title>
 </head>
 <body onload="loadDates()">
     <%
@@ -32,7 +33,7 @@
         <div id="welcome-message">
             <h3 id="slogan">Book stress free with</h3>
             <br>
-            <h1 id="service-name">PLACEHOLDER NAME FOR OUR WEBSITE</h1>
+            <h1 id="service-name">HotelExpress</h1>
         </div>
     </div>
 
@@ -43,7 +44,7 @@
         <br>
         <div id="dateinput">
             <div id="disclaimer">
-                <p>We here at <strong>COMPANY NAME</strong> pride ourselves on our high quality reservation system that
+                <p>We here at <strong>HotelExpress</strong> pride ourselves on our high quality reservation system that
                 has provided millions of customers with accommodations for decades.
                 But, no need to hear it from us, <strong>try it out for yourself below!</strong> </p>
             </div>

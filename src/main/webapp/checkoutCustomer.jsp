@@ -9,6 +9,7 @@
 <head>
     <title>Checkout Customer</title>
     <link href="index.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/logo.png">
 </head>
 <body id="employee-landing">
     <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>

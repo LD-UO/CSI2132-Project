@@ -4,6 +4,7 @@
     <head>
         <link rel="stylesheet" href="index.css">
         <title>Registration</title>
+        <link rel="icon" type="image/x-icon" href="assets/logo.png">
     </head>
     <body id="registration-page">
     <h1>Logo</h1>

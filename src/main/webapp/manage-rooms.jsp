@@ -10,6 +10,7 @@
     <head>
         <title>Manage Rooms</title>
         <link href="index.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="assets/logo.png">
     </head>
     <body id="employee-landing">
     <%

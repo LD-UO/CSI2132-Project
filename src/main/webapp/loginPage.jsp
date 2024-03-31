@@ -6,6 +6,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="index.css">
+        <link rel="icon" type="image/x-icon" href="assets/logo.png">
         <title>Login</title>
     </head>
     <body id="test">
