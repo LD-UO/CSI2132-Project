@@ -483,5 +483,27 @@ public class Room {
         return areaNumberToCity.get(resultantArea);
     }
 
+    public static int getRoomsByArea(String area){
+        ConnectionDB db = new ConnectionDB();
+        int areaNumber = areaCityToNumber.get(area);
+        int numberOfRooms = 0;
+
+        String sql = "SELECT number_of_avalable_rooms from rooms_by_area where area = ?";
+
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, areaNumber);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()){
+                numberOfRooms = rs.getInt("number_of_avalable_rooms");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return numberOfRooms;
+    }
+
 
 }

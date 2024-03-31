@@ -14,10 +14,16 @@
     <body id="employee-landing">
     <%
          boolean failed = Boolean.parseBoolean(request.getParameter("failure"));
+         Employee manager = Session.currentSessionEmployee;
+         int streetNum = manager.getStreetNum();
+         String streetName = manager.getStreetName();
+         String postalCode = manager.getPostalCode();
+         int totalRooms = manager.getRoomsInHotel(streetNum, streetName, postalCode);
     %>
-    `<h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>`
+    <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
     <p id="failure">Something went wrong, please try again</p>
     <h1>Here are all the rooms at your hotel</h1>
+    <p>You can have a total of <%= totalRooms %> customers at your hotel! </p>
     <div id="add-employee-div">
             <form action="add-room-page.jsp" method="POST">
                 <input type="submit" id="add-employee-button" value="+ Add Room">
@@ -31,11 +37,6 @@
             <th>Defects</th>
         </tr>
         <%
-            Employee manager = Session.currentSessionEmployee;
-            int streetNum = manager.getStreetNum();
-            String streetName = manager.getStreetName();
-            String postalCode = manager.getPostalCode();
-
             List<Room> allRooms = Room.getAllRoomsInHotel(streetNum, streetName, postalCode);
             List<Room> deletableRooms = new ArrayList<Room>();
 

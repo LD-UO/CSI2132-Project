@@ -16,6 +16,8 @@
         <br>
         <div id="room-welcome">
             <p id="room-welcome-message">For the dates you have provided, the following rooms match your criteria: </p>
+            <p id="no-rooms"></p>
+            <p id="room-count"></p>
         </div>
         <br>
         <%
@@ -24,6 +26,9 @@
             String city = request.getParameter("city");
             Room r1 = new Room();
             List<Room> results = r1.findAvailableRooms(startDate, endDate, city);
+            int roomCount = r1.getRoomsByArea(city);
+
+            boolean noRooms = results.isEmpty();
             for (Room r : results){
         %>
                 <form action="checkout.jsp" method="POST">
@@ -78,6 +83,13 @@
 
             <% }
         %>
+        <script>
+            if ( <%= noRooms %> ){
+                document.getElementById("no-rooms").innerHTML = "Sorry, doesn't look like there are any rooms with the filters you've provided, please try again!";
+            } else {
+                document.getElementById("room-count").innerHTML = "There are <%= roomCount %> rooms available meeting your filters!";
+            }
+        </script>
         <script src="index.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

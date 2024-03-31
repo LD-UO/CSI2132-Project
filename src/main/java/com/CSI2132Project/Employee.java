@@ -421,5 +421,27 @@ public class Employee {
         return employees;
     }
 
+    public static int getRoomsInHotel(int streetNum, String streetName, String postalCode){
+        ConnectionDB db = new ConnectionDB();
+        int capacity = 0;
+
+
+        String sql = "SELECT capacity from hotels_by_capacity where streetnum = ? and streetname = ? and postalcode=?";
+
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, streetNum);
+            ps.setString(2, streetName);
+            ps.setString(3, postalCode);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()){
+                capacity = rs.getInt("capacity");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return capacity;
+    }
 
 }
