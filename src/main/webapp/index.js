@@ -42,9 +42,9 @@ function nameChange(){
         console.log(bothEmpty);
 
         if (bothEmpty){
-            document.getElementById("submit").disabled = true;
+            document.getElementById("add-employee-submit").disabled = true;
         } else {
-            document.getElementById("submit").disabled = false;
+            document.getElementById("add-employee-submit").disabled = false;
         }
     });
 
@@ -53,9 +53,9 @@ function nameChange(){
         bothEmpty = (nameLength == 0) && (addressLength == 0);
         console.log(bothEmpty);
         if (bothEmpty){
-            document.getElementById("submit").disabled = true;
+            document.getElementById("add-employee-submit").disabled = true;
         } else {
-            document.getElementById("submit").disabled = false;
+            document.getElementById("add-employee-submit").disabled = false;
         }
     });
 
@@ -68,9 +68,9 @@ function employeeChange(){
             console.log(threeEmpty);
 
             if (threeEmpty){
-                document.getElementById("submit").disabled = true;
+                document.getElementById("employee-text-input").disabled = true;
             } else {
-                document.getElementById("submit").disabled = false;
+                document.getElementById("employee-text-input").disabled = false;
             }
         });
 
@@ -80,9 +80,9 @@ function employeeChange(){
             console.log(threeEmpty);
 
             if (threeEmpty){
-                document.getElementById("submit").disabled = true;
+                document.getElementById("employee-text-input").disabled = true;
             } else {
-                document.getElementById("submit").disabled = false;
+                document.getElementById("employee-text-input").disabled = false;
             }
         });
 
@@ -92,9 +92,9 @@ function employeeChange(){
             console.log(threeEmpty);
 
             if (threeEmpty){
-                document.getElementById("submit").disabled = true;
+                document.getElementById("employee-text-input").disabled = true;
             } else {
-                document.getElementById("submit").disabled = false;
+                document.getElementById("employee-text-input").disabled = false;
             }
         });
 

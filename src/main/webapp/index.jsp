@@ -17,7 +17,7 @@
     %>
     <div id="banner">
         <div id="logo-div">
-            <h1>Logo will go here</h1>
+            <img src="assets/logo.png" id="website-logo-home-page">
         </div>
         <div id="employee-login-div">
             <form id="login-form-button-customer" action="loginPage.jsp?accountInfo=true" method="POST">

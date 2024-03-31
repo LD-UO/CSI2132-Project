@@ -136,7 +136,7 @@ public class Room {
                 "LEFT JOIN Reservation ON Room.RoomNum = Reservation.RoomNum " +
                 "AND Reservation.startDate <= ? " +
                 "AND Reservation.endDate >= ? " +
-                "WHERE Reservation.RoomNum IS NULL AND Room.area = ? " +
+                "WHERE Reservation.RoomNum IS NULL AND Room.area = ? AND Room.available = true " +
                 "GROUP BY Room.RoomNum, Room.StreetNum, Room.StreetName, Room.PostalCode " +
                 "HAVING COUNT(Reservation.RoomNum) = 0;";
 
@@ -252,6 +252,56 @@ public class Room {
         return success;
     }
 
+    public static List<Reservation> getCustomerReservations(String username){
+        ConnectionDB db = new ConnectionDB();
+        Connection con = null;
+        List<Reservation> customerReservations = new ArrayList<Reservation>();
+        String sql = "SELECT * FROM reservation WHERE reservation.username = ?";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                Reservation r = new Reservation(rs.getInt("employee_id"), rs.getInt("roomnum"),  rs.getString("username"), rs.getString("startdate"),  rs.getString("enddate"), rs.getInt("streetnum"), rs.getString("streetname"), rs.getString("postalcode"));
+                customerReservations.add(r);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        return customerReservations;
+    }
+
+    public static void updateRoomAvailability(int roomNum, int streetNum, String streetName, String postalCode){
+        ConnectionDB db = new ConnectionDB();
+        Connection con = null;
+        String sql = "UPDATE room set available = true where roomnum = ? AND streetnum = ? AND streetname = ? AND postalcode = ?";
+       //  System.out.println(roomNum + " " + streetNum + " " + streetName + " " + postalCode);
+        try {
+            con = db.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, roomNum);
+            ps.setInt(2, streetNum);
+            ps.setString(3, streetName);
+            ps.setString(4, postalCode);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0){
+                System.out.println("Successfully set the customer's rooms to be available");
+            } else {
+                System.err.println("Something went wrong!");
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
     public static boolean checkOut(Room room) {
         ConnectionDB db = new ConnectionDB();
         Connection con = null;

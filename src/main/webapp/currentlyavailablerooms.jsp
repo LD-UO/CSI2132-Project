@@ -37,7 +37,14 @@
             Session.setRoom(sessionRoom);
         %>
 
-        <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
+        <div id="employee-banner">
+            <div id="employee-logo">
+                <a href="employee-landing.jsp"><img src="assets/logo.png" id="website-logo"></a>
+            </div>
+            <div id="employee-logout">
+                <p><a id="logo-link" href="index.jsp">Logout</a></p>
+            </div>
+        </div>
         <h1>All of the currently available rooms are in the dropdown below: </h1>
             <div id="rentroomform">
             <form action="rentavailableroom.jsp" method="POST">

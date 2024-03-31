@@ -12,7 +12,14 @@
     <link rel="icon" type="image/x-icon" href="assets/logo.png">
 </head>
 <body id="employee-landing">
-    <h1><a id="logo-link" href="employee-landing.jsp">Logo will go here<a></h1>
+    <div id="employee-banner">
+        <div id="employee-logo">
+            <a href="employee-landing.jsp"><img src="assets/logo.png" id="website-logo"></a>
+        </div>
+        <div id="employee-logout">
+            <p><a id="logo-link" href="index.jsp">Logout</a></p>
+        </div>
+    </div>
     <p id="failure">Something went wrong, please try again!</p>
     <p id="success">Checked out successfully!</p>
 

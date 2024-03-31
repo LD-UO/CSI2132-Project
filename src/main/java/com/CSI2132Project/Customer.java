@@ -157,6 +157,16 @@ public class Customer {
     public static boolean deleteCustomer(Customer customer) {
         boolean result = false;
         ConnectionDB db = new ConnectionDB();
+
+        // If a customer is deleted, also need to delete any of their reservations
+        // Getting a list of all the current reservations by a customer
+        List<Reservation> customerReservations = Room.getCustomerReservations(customer.getUsername());
+
+        for (Reservation r : customerReservations) {
+            // Now need to set the room to be available
+            Room.updateRoomAvailability(r.getRoomNum(), r.getStreetNum(), r.getStreetName(), r.getPostalCode());
+        }
+
         try (Connection con = db.getConnection()) {
             String sql = "DELETE FROM Customers WHERE username = ?";
 
@@ -174,7 +184,6 @@ public class Customer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return result;
     }
 

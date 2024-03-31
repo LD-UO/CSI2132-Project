@@ -10,7 +10,11 @@
         <%
             boolean loginFailed = Boolean.parseBoolean(request.getParameter("loginFailed"));
         %>
-        <h1>Logo will go here</h1>
+        <div id="employee-banner">
+            <div id="employee-logo">
+                <a href="index.jsp"><img src="assets/logo.png" id="website-logo"></a>
+            </div>
+        </div>
         <div id="login-form">
             <form action="employee-login-controller.jsp" method="POST">
                 <label id="login-declaration" for="employee-id">Please enter your Employee ID: </label><br>

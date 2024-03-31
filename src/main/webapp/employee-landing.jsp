@@ -21,15 +21,13 @@
         %>
         <div id="employee-banner">
             <div id="employee-logo">
-                <h1>Logo will go here</h1>
+                <img src="assets/logo.png" id="website-logo">
             </div>
             <div id="employee-logout">
-                <h1><a id="logo-link" href="index.jsp">Home</a></h1>
+                <p><a id="logo-link" href="index.jsp">Logout</a></p>
             </div>
         </div>
 
-        <br>
-        <br>
         <br>
         <br>
 

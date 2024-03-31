@@ -529,14 +529,75 @@ option, select {
 
 #employee-banner {
     width: 100%;
+    height: 10%;
 }
 
-#employee-logo, #employee-logout{
-    width: 45%;
+#employee-logo {
+    width: 85%;
     float: left;
     margin-left: 25px;
 }
 
 #employee-logout {
+    float: left;
+    width: 12%;
     text-align: right;
+    font-size: 18px;
+}
+
+#employee-logout:hover{
+    text-decoration: underline;
+}
+
+#website-logo{
+    margin-top: 25px;
+    width: 50px;
+    height: 50px;
+}
+
+#website-logo-home-page{
+    margin-top: 10px;
+    margin-left: 25px;
+    width: 45px;
+    height: 45px;
+}
+
+#add-employee-form{
+    width: 100%;
+    background-color: rgb(14, 28, 84);
+    color: white;
+    text-align: center;
+}
+
+#add-employee-submit {
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding: 10px;
+    background-color: white;
+    color: rgb(14, 28, 84);
+    font-family: "DM Serif Display";
+}
+
+#add-employee-submit:hover{
+    cursor: pointer;
+}
+
+#employee-text-input, #name, #address, #position, #room-input-roomNum, #room-input-price, #room-input-defects, #room-input-view, #room-update-price, #room-update-capacity, #room-update-defects, #room-update-view {
+    font-family: "DM Serif Display";
+}
+
+#delete-account-button {
+    font-family: "DM Serif Display";
+    padding: 15px;
+    color: red;
+    border: 2px solid red;
+    background-color: white;
+    border-radius: 15px;
+}
+
+#delete-account-button:hover{
+    color: white;
+    border: 2px solid white;
+    background-color: red;
 }
