@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.sql.Date;
+import java.util.Map;
+
+import static java.util.Map.entry;
 
 public class Room {
 
@@ -23,6 +27,19 @@ public class Room {
     private String viewDescription;
     private boolean available;
 
+    private String area;
+
+    public static Map<Integer, String> areaNumberToCity = Map.ofEntries(
+            entry(100, "Toronto"),
+            entry(150, "New York"),
+            entry(200, "Vancouver")
+    );
+
+    public static Map<String, Integer> areaCityToNumber = Map.ofEntries(
+        entry("Toronto", 100),
+        entry("New York", 150),
+        entry("Vancouver", 200)
+    );
 
     public Room(){
         // Creating an empty constructor so I can create a Room instance to access the findAvailableRooms method
@@ -50,10 +67,11 @@ public class Room {
      * @param defects
      * @param viewDescription
      * @param available
+     * @param area
      */
 
 
-    public Room(int roomNum, int streetNum, String streetName, String postalCode, double price, boolean tv, boolean ac, boolean fridge, int capacity, boolean isExtendable, String defects, String viewDescription, boolean available) {
+    public Room(int roomNum, int streetNum, String streetName, String postalCode, double price, boolean tv, boolean ac, boolean fridge, int capacity, boolean isExtendable, String defects, String viewDescription, boolean available, String area) {
         this.roomNum = roomNum;
         this.streetNum = streetNum;
         this.streetName = streetName;
@@ -67,6 +85,7 @@ public class Room {
         this.defects = defects;
         this.viewDescription = viewDescription;
         this.available = available;
+        this.area = area;
     }
 
     // Getters
@@ -84,7 +103,7 @@ public class Room {
     public String getViewDescription() { return viewDescription; }
     public boolean isAvailable() { return available; }
 
-
+    public String getArea() {return area;}
     // Setters
     public void setRoomNum(int roomNum) { this.roomNum = roomNum; }
     public void setStreetNum(int streetNum) { this.streetNum = streetNum; }
@@ -100,6 +119,7 @@ public class Room {
     public void setViewDescription(String viewDescription) { this.viewDescription = viewDescription; }
     public void setAvailable(boolean available) { this.available = available; }
 
+    public void setArea(String area) {this.area = area; }
     /**
      * Finds and returns a list of available rooms for a given date range.
      *
@@ -107,7 +127,7 @@ public class Room {
      * @param endDate The end date of the desired reservation period (format: YYYY-MM-DD).
      * @return A list of available rooms.
      */
-    public static List<Room> findAvailableRooms(String startDate, String endDate) throws Exception {
+    public static List<Room> findAvailableRooms(String startDate, String endDate, String area) throws Exception {
 
         List<Room> availableRooms = new ArrayList<>();
         ConnectionDB db = new ConnectionDB();
@@ -116,20 +136,20 @@ public class Room {
                 "LEFT JOIN Reservation ON Room.RoomNum = Reservation.RoomNum " +
                 "AND Reservation.startDate <= ? " +
                 "AND Reservation.endDate >= ? " +
-                "WHERE Reservation.RoomNum IS NULL " +
+                "WHERE Reservation.RoomNum IS NULL AND Room.area = ? " +
                 "GROUP BY Room.RoomNum, Room.StreetNum, Room.StreetName, Room.PostalCode " +
                 "HAVING COUNT(Reservation.RoomNum) = 0;";
 
         // Converting the string dates to SQL date objects so that they can be used for comparison purposes
         Date startDateSQL = Date.valueOf(startDate);
         Date endDateSQL = Date.valueOf(endDate);
-
         try {
             Connection con = db.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             // Setting the parameters for the PreparedStatement
             ps.setDate(1, startDateSQL);
             ps.setDate(2, endDateSQL);
+            ps.setInt(3, areaCityToNumber.get(area));
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -147,7 +167,8 @@ public class Room {
                             rs.getBoolean("IsExtendable"),
                             rs.getString("Defects"),
                             rs.getString("ViewDescription"),
-                            rs.getBoolean("Available")
+                            rs.getBoolean("Available"),
+                            rs.getString("Area")
                     );
 
                     availableRooms.add(room);
@@ -191,7 +212,8 @@ public class Room {
                         rs.getBoolean("IsExtendable"),
                         rs.getString("Defects"),
                         rs.getString("ViewDescription"),
-                        rs.getBoolean("Available")
+                        rs.getBoolean("Available"),
+                        rs.getString("Area")
                 );
                 availableRooms.add(room);
             }
@@ -298,8 +320,8 @@ public class Room {
 
 
     public static boolean addRoom(Room room) {
-        String sql = "INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO Room (RoomNum, StreetNum, StreetName, PostalCode, Price, TV, AC, Fridge, Capacity, IsExtendable, Defects, ViewDescription, Available, Area) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         boolean result = false;
 
         try (Connection con = new ConnectionDB().getConnection();
@@ -318,6 +340,7 @@ public class Room {
             pstmt.setString(11, room.getDefects());
             pstmt.setString(12, room.getViewDescription());
             pstmt.setBoolean(13, room.isAvailable());
+            pstmt.setInt(14, areaCityToNumber.get(room.getArea()));
 
             int rowsAffected = pstmt.executeUpdate();
 
@@ -428,7 +451,8 @@ public class Room {
                         rs.getBoolean("IsExtendable"),
                         rs.getString("Defects"),
                         rs.getString("ViewDescription"),
-                        rs.getBoolean("Available")
+                        rs.getBoolean("Available"),
+                        rs.getString("Area")
                 );
                 rooms.add(room);
             }
@@ -436,6 +460,27 @@ public class Room {
             e.printStackTrace();
         }
         return rooms;
+    }
+
+    public static String getAreaGivenAddress(int streetNum, String streetName, String postalCode){
+        ConnectionDB db = new ConnectionDB();
+        String sql = "SELECT area FROM room WHERE streetnum = ? and streetname = ? and postalcode = ?";
+        int resultantArea = 0;
+
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, streetNum);
+            ps.setString(2, streetName);
+            ps.setString(3, postalCode);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                resultantArea = rs.getInt("area");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return areaNumberToCity.get(resultantArea);
     }
 
 

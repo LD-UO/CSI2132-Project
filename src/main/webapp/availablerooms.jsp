@@ -21,8 +21,9 @@
         <%
             String startDate = request.getParameter("checkin");
             String endDate = request.getParameter("checkout");
+            String city = request.getParameter("city");
             Room r1 = new Room();
-            List<Room> results = r1.findAvailableRooms(startDate, endDate);
+            List<Room> results = r1.findAvailableRooms(startDate, endDate, city);
             for (Room r : results){
         %>
                 <form action="checkout.jsp" method="POST">
@@ -41,6 +42,7 @@
                 <input type="hidden" id="currentAvailable" name="currentAvailable" value=<%= r.isAvailable() %>>
                 <input type="hidden" id="currentStartDate" name="currentStartDate" value=<%= startDate %>>
                 <input type="hidden" id="currentEndDate" name="currentEndDate" value=<%= endDate %>>
+                <input type="hidden" id="city" name="city" value="<%= city %>">
 
                 <div class="card" style="width: 18rem;">
                   <img src="assets/hotel.jpg" class="card-img-top" alt="...">

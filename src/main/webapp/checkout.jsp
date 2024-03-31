@@ -14,6 +14,8 @@
         Room currentRoom;
         String startDate;
         String endDate;
+        String city;
+
         try {
             int roomNum = Integer.parseInt(request.getParameter("currentRoomNumber"));
             int streetNum = Integer.parseInt(request.getParameter("currentStreetNum"));
@@ -30,8 +32,9 @@
             boolean isAvailable = Boolean.parseBoolean(request.getParameter("currentAvailable"));
             startDate = request.getParameter("currentStartDate");
             endDate = request.getParameter("currentEndDate");
+            city = request.getParameter("city");
 
-            currentRoom = new Room(roomNum, streetNum, streetName, postalCode, price, isTv, isAc, isFridge, capacity, isExtendable, defects, description, isAvailable);
+            currentRoom = new Room(roomNum, streetNum, streetName, postalCode, price, isTv, isAc, isFridge, capacity, isExtendable, defects, description, isAvailable, city);
 
             Session.setRoom(currentRoom);
             Session.setCurrentSessionStartDate(startDate);

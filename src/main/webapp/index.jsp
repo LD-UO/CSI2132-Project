@@ -47,7 +47,7 @@
                 has provided millions of customers with accommodations for decades.
                 But, no need to hear it from us, <strong>try it out for yourself below!</strong> </p>
             </div>
-            <form action="availablerooms.jsp" method="POST">
+            <form id="search-form" action="availablerooms.jsp" method="POST">
                 <div id="checkindiv">
                     <label for="checkin">Check-in Date: </label>
                     <br>
@@ -58,8 +58,18 @@
                     <br>
                     <input id="checkoutdateinput" name="checkout" type="date" required>
                 </div>
-                <br>
-                <button id="submitbutton" type="submit">Check Availability!</button>
+                <div id="locationdiv">
+                    <label for="city">Location:</label>
+                    <br>
+                    <select name="city" required>
+                        <option value="Toronto">Toronto</option>
+                        <option value="New York">New York</option>
+                        <option value="Vancouver">Vancouver</option>
+                    </select>
+                </div>
+                <div id="submit-button-div">
+                    <button id="submitbutton" type="submit">Check Availability!</button>
+                </div>
             </form>
         </div>
         <br>

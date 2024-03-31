@@ -34,7 +34,7 @@
             <label for="nofridge">No</label><br>
 
             <label for="capacity">Please enter the capacity of the room</label><br>
-            <input type="number" min=1 name="capacity" id="capacity" required><br>
+            <input type="number" min=1 max = 5 name="capacity" id="capacity" required><br>
 
 
             <p>Is the room extendable?</p>

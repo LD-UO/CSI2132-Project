@@ -18,7 +18,7 @@
             <label for="name">Updated employee name:</label><br>
             <input type="text" id="name" name="name"><br>
             <label for="phone">Updated phone number: </label><br>
-            <input type="text" id="phone" name="phone" onkeypress="return isNumberKey(event)"><br>
+            <input type="text" id="phone" name="phone" onkeypress="return isNumberKey(event)" min="10" max="10"><br>
             <label for="position">Updated position: </label><br>
             <input type="text" id="position" name="position"><br>
             <input type="submit" id="submit" value="Update" disabled>

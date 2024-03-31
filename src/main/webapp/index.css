@@ -97,14 +97,22 @@ body {
     background-color: white ;
     font-size: 18px;
 }
-
+#search-form {
+    text-align: center;
+}
 #checkindiv, #checkoutdiv {
     margin-top: 50px;
     float: left;
-    width: 50%;
+    width: 33%;
 }
 
-#checkindiv {
+#locationdiv{
+    margin-top: 50px;
+    float: left;
+    width: 34%;
+}
+
+#checkindiv, #checkoutdiv {
     border-right: 1px solid black;
 }
 
@@ -117,6 +125,9 @@ body {
     color: white;
 }
 
+#submitbutton{
+    margin-top: 50px;
+}
 #submitbutton:hover, #selectroombutton:hover{
     background-color: white;
     border: 1px solid rgb(14, 28, 84);

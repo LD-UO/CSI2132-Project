@@ -21,8 +21,10 @@
     String streetName = m.getStreetName();
     String postalCode = m.getPostalCode();
 
+    String area = Room.getAreaGivenAddress(streetNum, streetName, postalCode);
+
     // Setting the availability of the new room to be true as a new room cannot possibly have any reservations
-    Room toBeAdded = new Room(roomNum, streetNum, streetName, postalCode, price, hasTv, hasAc, hasFridge, capacity, isExtendable, defects, view, true);
+    Room toBeAdded = new Room(roomNum, streetNum, streetName, postalCode, price, hasTv, hasAc, hasFridge, capacity, isExtendable, defects, view, true, area);
 
     boolean result = Room.addRoom(toBeAdded);
 

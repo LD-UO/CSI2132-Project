@@ -32,6 +32,7 @@
             response.sendRedirect("accountInfo.jsp?username=" + customerReturned.getUsername());
         } else {
             l.setLoggedinStatus();
+            l.setUserName(username);
             response.sendRedirect("checkout.jsp");
         }
     } else {
